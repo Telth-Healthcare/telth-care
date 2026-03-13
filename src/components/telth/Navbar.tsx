@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/TELTH LOGO.png";
 
-
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -18,11 +17,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 no-underline">
-         <img 
-         src={logo}
-         alt="telth.care"
-         className="h-10 w-auto"
-         />
+          <img src={logo} alt="telth.care" className="h-10 w-auto" />
         </a>
 
         <ul className="hidden md:flex items-center gap-8 list-none">
@@ -40,13 +35,18 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-2.5">
           <button
-            onClick={() => navigate("https://app.telth.care/ccm-auth/signin")}
+            onClick={() =>
+              (window.location.href = "https://app.telth.care/ccm-auth/signin")
+            }
             className="text-[13px] font-semibold text-foreground border border-border px-4 py-2 rounded-lg hover:border-primary hover:text-primary transition-all bg-transparent cursor-pointer"
           >
             Login
           </button>
+
           <button
-            onClick={() => navigate("https://app.telth.care/ccm-auth/signup")}
+            onClick={() =>
+              (window.location.href = "https://app.telth.care/ccm-auth/signup")
+            }
             className="text-[13px] font-bold text-primary-foreground bg-primary px-5 py-2 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
           >
             Apply Now
@@ -76,18 +76,22 @@ export default function Navbar() {
             </a>
           ))}
           <div className="grid grid-cols-2 gap-3 ">
-          <button
-            onClick={() => navigate("https://app.telth.care/ccm-auth/signin")}
-            className="text-[13px] font-semibold text-foreground border border-border px-4 py-2 rounded-lg hover:border-primary hover:text-primary transition-all bg-transparent cursor-pointer"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate("https://app.telth.care/ccm-auth/signup")}
-            className="bg-primary text-primary-foreground font-bold text-[14px] py-2.5 rounded-lg border-none cursor-pointer"
-          >
-            Apply Now
-          </button>
+            <button
+              onClick={() =>
+              (window.location.href = "https://app.telth.care/ccm-auth/signin")
+            }
+              className="text-[13px] font-semibold text-foreground border border-border px-4 py-2 rounded-lg hover:border-primary hover:text-primary transition-all bg-transparent cursor-pointer"
+            >
+              Login
+            </button>
+            <button
+              onClick={() =>
+              (window.location.href = "https://app.telth.care/ccm-auth/signup")
+            }
+              className="bg-primary text-primary-foreground font-bold text-[14px] py-2.5 rounded-lg border-none cursor-pointer"
+            >
+              Apply Now
+            </button>
           </div>
         </div>
       )}
