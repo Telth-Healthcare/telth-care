@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "@/assets/TELTH LOGO.png";
+
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,17 +18,11 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 no-underline">
-          <div className="w-8 h-8 bg-primary rounded-[9px] flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M9 1.5L11.5 7H17L12.5 10.5L14.5 16L9 12.5L3.5 16L5.5 10.5L1 7H6.5L9 1.5Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-          <span className="text-foreground text-[19px] font-bold tracking-tight font-display">
-            Telth<span className="text-primary">.care</span>
-          </span>
+         <img 
+         src={logo}
+         alt="telth.care"
+         className="h-10 w-auto"
+         />
         </a>
 
         <ul className="hidden md:flex items-center gap-8 list-none">

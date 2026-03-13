@@ -1,15 +1,14 @@
+import logo from "@/assets/TELTH LOGO.png";
+
 export default function Footer() {
   return (
-    <footer className="bg-telth-navy px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-5 flex-wrap">
+    <footer className="bg-telth-navy/80 px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-5 flex-wrap">
       <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 bg-primary rounded-[8px] flex items-center justify-center">
-          <svg className="w-3.5 h-3.5" viewBox="0 0 18 18" fill="none">
-            <path d="M9 1.5L11.5 7H17L12.5 10.5L14.5 16L9 12.5L3.5 16L5.5 10.5L1 7H6.5L9 1.5Z" fill="white" />
-          </svg>
-        </div>
-        <span className="text-white text-[17px] font-bold font-display">
-          Telth<span className="text-primary">.care</span>
-        </span>
+         <img 
+         src={logo}
+         alt="telth.care"
+         className="h-10 w-auto"
+         />
       </div>
       <div className="flex gap-7">
         {["Privacy Policy", "Terms of Service", "Contact Us"].map((l) => (
