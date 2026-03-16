@@ -1,7 +1,35 @@
+import { apiClient } from "@/api/client";
+import { handleAxiosError } from "@/api/handleAxiosError";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function WebinarSection() {
+  const [ state, setState] = useState({
+    email: '',
+  });
   const ref = useScrollAnimation();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      
+      try {
+        const response = await apiClient.post('web/webinars/', {
+          email: state.email,
+          description: "Join our free webinar." ,
+        });
+                
+        setState({ 
+          email: '', 
+        });
+        
+        
+      } catch (error) {
+        const errorMessage = handleAxiosError(error, 'Something went wrong. Please try again.')
+        toast.error(errorMessage);
+      }
+    };
+  
 
   return (
     <section id="webinar" className="bg-telth-navy py-20">
@@ -23,12 +51,15 @@ export default function WebinarSection() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <input
+                value={state.email}
+                onChange={(e) => setState({ ...state, email: e.target.value })}
+                name="email"
                 type="email"
                 placeholder="Enter your email address"
                 className="flex-1 px-5 py-3.5 bg-white/[0.06] border border-white/10 rounded-xl text-white text-[15px] placeholder-white/30 outline-none focus:border-primary transition-colors font-[inherit]"
               />
 
-              <button className="bg-primary text-primary-foreground font-bold text-[14px] px-6 py-3.5 rounded-xl hover:opacity-90 transition-colors cursor-pointer border-none whitespace-nowrap">
+              <button onClick={handleSubmit} className="bg-primary text-primary-foreground font-bold text-[14px] px-6 py-3.5 rounded-xl hover:opacity-90 transition-colors cursor-pointer border-none whitespace-nowrap">
                 Reserve My Spot
               </button>
             </div>

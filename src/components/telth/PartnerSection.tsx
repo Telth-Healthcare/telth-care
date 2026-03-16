@@ -1,3 +1,4 @@
+import { apiClient } from "@/api/client";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +8,8 @@ interface FormData {
   email: string;
   phone: string;
   city: string;
-  organisation: string;
-  organisationType: string;
+  organization: string;
+  organizationType: string;
   message: string;
 }
 
@@ -17,8 +18,8 @@ interface FormErrors {
   email?: string;
   phone?: string;
   city?: string;
-  organisation?: string;
-  organisationType?: string;
+  organization?: string;
+  organizationType?: string;
   message?: string;
 }
 
@@ -35,13 +36,14 @@ export default function PartnerSection() {
     email: '',
     phone: '',
     city: '',
-    organisation: '',
-    organisationType: '',
+    organization: '',
+    organizationType: '',
     message: ''
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [showForm, setShowForm] = useState(true); // New state to control form visibility
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -66,12 +68,12 @@ export default function PartnerSection() {
       newErrors.city = 'City is required';
     }
     
-    if (!formData.organisation.trim()) {
-      newErrors.organisation = 'Organisation name is required';
+    if (!formData.organization.trim()) {
+      newErrors.organization = 'organization name is required';
     }
     
-    if (!formData.organisationType) {
-      newErrors.organisationType = 'Please select an organisation type';
+    if (!formData.organizationType) {
+      newErrors.organizationType = 'Please select an organization type';
     }
     
     if (!formData.message.trim()) {
@@ -93,44 +95,37 @@ export default function PartnerSection() {
     setSubmitStatus('idle');
     
     try {
-      const response = await fetch('https://formsubmit.co/ajax/info@mytelth.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          city: formData.city,
-          organisation: formData.organisation,
-          organisationType: formData.organisationType,
-          message: formData.message,
-          _subject: 'New Partnership Enquiry',
-          _template: 'table'
-        })
+      const response = await apiClient.post('web/contacts/', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        city: formData.city,
+        organization: formData.organization,
+        organization_type: formData.organizationType,
+        description: formData.message,
       });
       
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ 
-          name: '', 
-          email: '', 
-          phone: '', 
-          city: '', 
-          organisation: '', 
-          organisationType: '', 
-          message: '' 
-        });
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          setSubmitStatus('idle');
-        }, 5000);
-      } else {
-        setSubmitStatus('error');
-      }
+      // If successful
+      setSubmitStatus('success');
+      setShowForm(false); // Hide the form
+      
+      // Clear form data
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        city: '', 
+        organization: '', 
+        organizationType: '', 
+        message: '' 
+      });
+      
+      // Show success message for 5 seconds, then show form again
+      setTimeout(() => {
+        setShowForm(true);
+        setSubmitStatus('idle');
+      }, 5000);
+      
     } catch (error) {
       console.error('Submission error:', error);
       setSubmitStatus('error');
@@ -154,7 +149,7 @@ export default function PartnerSection() {
     <section id="partner" className="bg-background py-24">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14">
-          <span className="text-[11px] font-bold tracking-[2px] uppercase text-primary">For Organisations</span>
+          <span className="text-[11px] font-bold tracking-[2px] uppercase text-primary">For organizations</span>
           <h2 className="text-foreground text-[36px] md:text-[42px] font-bold leading-[1.12] mt-3 mb-4 font-display">Partner with Telth</h2>
           <p className="text-muted-foreground text-[17px] leading-[1.75] max-w-xl mx-auto">Hospitals, corporates, and government bodies — we build custom CM deployment programmes for your context.</p>
         </div>
@@ -173,150 +168,173 @@ export default function PartnerSection() {
           <h3 className="text-foreground text-[22px] font-bold mb-2 font-display">Send us an enquiry</h3>
           <p className="text-muted-foreground text-[15px] mb-8">Fill in the form and our partnerships team will respond within 24 hours.</p>
           
-          {/* Success/Error Messages */}
-          {submitStatus === 'success' && (
-            <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg animate-fadeIn">
-              <p className="font-semibold">Thank you for your enquiry!</p>
-              <p className="text-sm mt-1">Our partnerships team from <span className="font-medium">telth.care</span> will contact you within 24 hours.</p>
-              <p className="text-xs mt-2 text-green-600">This message will disappear in 5 seconds...</p>
+          {/* Success Message - Shown when form is hidden */}
+          {!showForm && submitStatus === 'success' && (
+            <div className="text-center py-12 animate-fadeIn">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h4 className="text-2xl font-bold text-foreground mb-3">Thank You!</h4>
+              <p className="text-muted-foreground text-lg mb-2">Your enquiry has been submitted successfully.</p>
+              <p className="text-muted-foreground">Our partnerships team from <span className="font-medium text-primary">telth.care</span> will contact you within 24 hours.</p>
+              <p className="text-sm text-muted-foreground/70 mt-6">This message will disappear in 5 seconds...</p>
             </div>
           )}
           
-          {submitStatus === 'error' && (
+          {/* Error Message - Shown even when form is visible */}
+          {submitStatus === 'error' && showForm && (
             <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
               <p className="font-semibold">Something went wrong.</p>
               <p className="text-sm mt-1">Please try again or email us directly at <span className="font-medium">info@telth.care</span></p>
             </div>
           )}
           
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Full Name */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-foreground">
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                className={`px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
-              />
-              {errors.name && <span className="text-red-500 text-xs">{errors.name}</span>}
-            </div>
+          {/* Form - Hidden after successful submission */}
+          {showForm ? (
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Full Name */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-foreground">
+                  Full Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your name"
+                  className={`px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
+                />
+                {errors.name && <span className="text-red-500 text-xs">{errors.name}</span>}
+              </div>
 
-            {/* Organisation */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-foreground">
-                Organisation <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="organisation"
-                value={formData.organisation}
-                onChange={handleChange}
-                placeholder="Hospital / Company name"
-                className={`px-4 py-3 rounded-lg border ${errors.organisation ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
-              />
-              {errors.organisation && <span className="text-red-500 text-xs">{errors.organisation}</span>}
-            </div>
+              {/* organization */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-foreground">
+                  organization <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="organization"
+                  value={formData.organization}
+                  onChange={handleChange}
+                  placeholder="Hospital / Company name"
+                  className={`px-4 py-3 rounded-lg border ${errors.organization ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
+                />
+                {errors.organization && <span className="text-red-500 text-xs">{errors.organization}</span>}
+              </div>
 
-            {/* City */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-foreground">
-                City <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                placeholder="Your city"
-                className={`px-4 py-3 rounded-lg border ${errors.city ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
-              />
-              {errors.city && <span className="text-red-500 text-xs">{errors.city}</span>}
-            </div>
+              {/* City */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-foreground">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  placeholder="Your city"
+                  className={`px-4 py-3 rounded-lg border ${errors.city ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
+                />
+                {errors.city && <span className="text-red-500 text-xs">{errors.city}</span>}
+              </div>
 
-            {/* Phone Number */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-foreground">
-                Phone Number <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="+91 XXXXX XXXXX"
-                className={`px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
-              />
-              {errors.phone && <span className="text-red-500 text-xs">{errors.phone}</span>}
-            </div>
+              {/* Phone Number */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-foreground">
+                  Phone Number <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+91 XXXXX XXXXX"
+                  className={`px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
+                />
+                {errors.phone && <span className="text-red-500 text-xs">{errors.phone}</span>}
+              </div>
 
-            {/* Email Address */}
-            <div className="flex flex-col gap-1.5 sm:col-span-2">
-              <label className="text-[13px] font-semibold text-foreground">
-                Email Address <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@organisation.com"
-                className={`px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
-              />
-              {errors.email && <span className="text-red-500 text-xs">{errors.email}</span>}
-            </div>
+              {/* Email Address */}
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <label className="text-[13px] font-semibold text-foreground">
+                  Email Address <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="you@organization.com"
+                  className={`px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit]`}
+                />
+                {errors.email && <span className="text-red-500 text-xs">{errors.email}</span>}
+              </div>
 
-            {/* Organisation Type */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-foreground">
-                Organisation Type <span className="text-red-500">*</span>
-              </label>
-              <select
-                name="organisationType"
-                value={formData.organisationType}
-                onChange={handleChange}
-                className={`px-4 py-3 rounded-lg border ${errors.organisationType ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit] ${!formData.organisationType ? 'text-muted-foreground' : 'text-foreground'}`}
-              >
-                <option value="" disabled>Select type</option>
-                <option value="Hospital / Clinic">Hospital / Clinic</option>
-                <option value="Corporate">Corporate</option>
-                <option value="Government / NGO">Government / NGO</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.organisationType && <span className="text-red-500 text-xs">{errors.organisationType}</span>}
-            </div>
+              {/* organization Type */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[13px] font-semibold text-foreground">
+                  organization Type <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="organizationType"
+                  value={formData.organizationType}
+                  onChange={handleChange}
+                  className={`px-4 py-3 rounded-lg border ${errors.organizationType ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit] ${!formData.organizationType ? 'text-muted-foreground' : 'text-foreground'}`}
+                >
+                  <option value="" disabled>Select type</option>
+                  <option value="Hospital / Clinic">Hospital / Clinic</option>
+                  <option value="Corporate">Corporate</option>
+                  <option value="Government / NGO">Government / NGO</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.organizationType && <span className="text-red-500 text-xs">{errors.organizationType}</span>}
+              </div>
 
-            {/* Message */}
-            <div className="flex flex-col gap-1.5 sm:col-span-2">
-              <label className="text-[13px] font-semibold text-foreground">
-                Message <span className="text-red-500">*</span>
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={3}
-                placeholder="Tell us about your requirements…"
-                className={`px-4 py-3 rounded-lg border ${errors.message ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit] resize-none`}
-              />
-              {errors.message && <span className="text-red-500 text-xs">{errors.message}</span>}
-            </div>
+              {/* Message */}
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <label className="text-[13px] font-semibold text-foreground">
+                  Message <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder="Tell us about your requirements…"
+                  className={`px-4 py-3 rounded-lg border ${errors.message ? 'border-red-500' : 'border-border'} bg-background text-[15px] outline-none focus:border-primary transition-colors font-[inherit] resize-none`}
+                />
+                {errors.message && <span className="text-red-500 text-xs">{errors.message}</span>}
+              </div>
 
-            {/* Submit Button */}
-            <div className="sm:col-span-2">
+              {/* Submit Button */}
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto mt-2 bg-primary text-primary-foreground font-bold text-[15px] px-10 py-3.5 rounded-xl hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer border-none disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
+                </button>
+              </div>
+            </form>
+          ) : (
+            /* Optional: Add a button to manually show form again */
+            <div className="text-center">
               <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full sm:w-auto mt-2 bg-primary text-primary-foreground font-bold text-[15px] px-10 py-3.5 rounded-xl hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer border-none disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                onClick={() => {
+                  setShowForm(true);
+                  setSubmitStatus('idle');
+                }}
+                className="text-primary hover:underline text-sm mt-4"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
+                Submit another enquiry
               </button>
             </div>
-          </form>
+          )}
         </div>
       </div>
     </section>

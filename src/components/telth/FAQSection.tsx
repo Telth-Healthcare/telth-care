@@ -10,11 +10,7 @@ const faqs = [
   { q: "How long does training take before I can start seeing patients?", a: "MedPass certification training takes 2–4 weeks, combining online modules with practical hands-on sessions. After training and device activation, you can begin accepting patient visits immediately." },
 ];
 
-interface FAQSectionProps {
-  onApply: () => void;
-}
-
-export default function FAQSection({ onApply }: FAQSectionProps) {
+export default function FAQSection() {
   const [open, setOpen] = useState(0);
   const ref = useScrollAnimation();
 
@@ -29,7 +25,7 @@ export default function FAQSection({ onApply }: FAQSectionProps) {
             </div>
             <h2 className="text-foreground text-[34px] font-bold leading-[1.15] mb-4 font-display">Still have questions?</h2>
             <p className="text-muted-foreground text-[15px] leading-[1.75] mb-7">We're happy to walk you through anything. Apply and our onboarding team will call you within 48 hours.</p>
-            <button onClick={onApply} className="bg-primary text-primary-foreground font-bold text-[14px] px-6 py-3 rounded-xl hover:opacity-90 transition-colors cursor-pointer border-none">Apply Now</button>
+            {/* <button onClick={onApply} className="bg-primary text-primary-foreground font-bold text-[14px] px-6 py-3 rounded-xl hover:opacity-90 transition-colors cursor-pointer border-none">Apply Now</button> */}
           </div>
           <div className="flex flex-col gap-3">
             {faqs.map((f, i) => (

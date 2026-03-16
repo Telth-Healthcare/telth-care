@@ -2,7 +2,7 @@ import logo from "@/assets/TELTH LOGO.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-telth-navy/80 px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-5 flex-wrap">
+    <footer className="bg-telth-navy/80 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-5 flex-wrap">
       <div className="flex items-center gap-2.5">
          <img 
          src={logo}

@@ -21,7 +21,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <Navbar onApply={() => setModalOpen(true)} />
+      <Navbar  />
       <HeroSection onApply={() => setModalOpen(true)} />
       <TrustBar />
       <WhatIsCMSection />
@@ -34,7 +34,7 @@ const Index = () => {
       <TestimonialSection />
       <WebinarSection />
       <PartnerSection />
-      <FAQSection onApply={() => setModalOpen(true)} />
+      <FAQSection />
       <Footer />
       <ApplicationModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
