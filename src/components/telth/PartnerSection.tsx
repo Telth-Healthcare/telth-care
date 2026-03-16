@@ -179,7 +179,6 @@ export default function PartnerSection() {
               <h4 className="text-2xl font-bold text-foreground mb-3">Thank You!</h4>
               <p className="text-muted-foreground text-lg mb-2">Your enquiry has been submitted successfully.</p>
               <p className="text-muted-foreground">Our partnerships team from <span className="font-medium text-primary">telth.care</span> will contact you within 24 hours.</p>
-              <p className="text-sm text-muted-foreground/70 mt-6">This message will disappear in 5 seconds...</p>
             </div>
           )}
           
