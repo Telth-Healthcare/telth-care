@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { toast } from "react-toastify";
 import { handleAxiosError } from "./handleAxiosError";
+import { toast } from "sonner";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 

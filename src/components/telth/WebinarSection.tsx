@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { apiClient } from "@/api/client";
 import { handleAxiosError } from "@/api/handleAxiosError";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export default function WebinarSection() {
   const [ state, setState] = useState({
