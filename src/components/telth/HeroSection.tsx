@@ -1,4 +1,4 @@
-import heroBanner from "@/assets/Gemini_Generated_Image_1ez51i1ez51i1ez5.png";
+import heroBanner from "@/assets/Background.svg";
 
 interface HeroSectionProps {
   onApply: () => void;
@@ -38,7 +38,7 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         />
 
         {/* Content */}
-        <div className="relative z-10 max-w-[1200px] mx-auto flex items-center min-h-[calc(100vh-64px)]">
+        <div className="relative z-10 mx-auto flex items-center min-h-[calc(100vh-64px)]">
           <div className="w-[55%] px-4 md:px-10 py-14 flex flex-col justify-between">
             <HeroContent stats={stats} onApply={onApply} />
           </div>
