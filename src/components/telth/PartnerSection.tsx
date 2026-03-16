@@ -2,6 +2,7 @@ import { apiClient } from "@/api/client";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface FormData {
   name: string;
@@ -108,7 +109,7 @@ export default function PartnerSection() {
       // If successful
       setSubmitStatus('success');
       setShowForm(false); // Hide the form
-      
+      toast.success("Your form as successfully send, our admin will contact you shortly.")   
       // Clear form data
       setFormData({ 
         name: '', 

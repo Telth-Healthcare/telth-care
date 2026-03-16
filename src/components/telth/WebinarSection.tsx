@@ -18,7 +18,7 @@ export default function WebinarSection() {
           email: state.email,
           description: "Join our free webinar." ,
         });
-                
+        toast.success("Your form as successfully send, our admin will contact you shortly.")   
         setState({ 
           email: '', 
         });

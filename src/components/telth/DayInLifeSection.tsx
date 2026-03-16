@@ -2,7 +2,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const rows = [
   {
-    tag: "Morning",
+    id: 1,
     title: "The day starts on your terms",
     body: "You check your visit schedule on the Telth CM App. Three confirmed appointments — two chronic care follow-ups and a new patient. You pack your HES device and head out.",
     details: [
@@ -13,7 +13,7 @@ const rows = [
     reverse: false,
   },
   {
-    tag: "Midday",
+    id:2,
     title: "90 parameters. 15 minutes. At their doorstep.",
     body: "At Mrs. Lakshmi's home, you set up the HES device and run a comprehensive assessment. Blood pressure, ECG, blood glucose, liver and kidney markers — all within 15 minutes. The P3DSC algorithm flags a pattern and suggests a care plan review.",
     details: [
@@ -24,7 +24,7 @@ const rows = [
     reverse: true,
   },
   {
-    tag: "Afternoon",
+    id:3,
     title: "Every service you deliver — pays you.",
     body: "Three visits done. Two care plan renewals. One medicine order facilitated. One specialist referral completed. You check your dashboard — today's earnings are already logged. No invoicing, no waiting.",
     details: [
@@ -57,7 +57,7 @@ export default function DayInLifeSection() {
         <div className="flex flex-col divide-y divide-border">
           {rows.map((row) => (
             <div
-              key={row.tag}
+              key={row.id}
               className={`grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center py-16 ${
                 row.reverse ? "md:[direction:rtl]" : ""
               }`}
@@ -75,9 +75,6 @@ export default function DayInLifeSection() {
               />
 
               <div className={row.reverse ? "md:[direction:ltr]" : ""}>
-                <div className="inline-block text-[11px] font-bold tracking-[1.2px] uppercase text-amber-600 mb-3">
-                  {row.tag}
-                </div>
 
                 <h3 className="text-foreground text-[24px] md:text-[28px] font-bold leading-[1.2] mb-4 font-display">
                   {row.title}
