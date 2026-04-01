@@ -101,7 +101,7 @@ function HeroContent({
         <h1 className="text-white font-bold leading-[1.1] mb-6">
           <span className="block text-[20px] sm:text-[36px] md:text-[44px] ">
             To Build Care Communities and
-          </span>
+          </span> 
 
           {/* Gradient Flow Text */}
           <span className="block text-[34px] sm:text-[42px] md:text-[40px] font-semibold italic mt-2 bg-gradient-to-r from-white/80 via-white to-white/60 bg-clip-text text-transparent">
