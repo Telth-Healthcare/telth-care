@@ -97,7 +97,7 @@ function HeroContent({
           </span>
         </div>
             <br />
-        {/* Heading */}
+        {/* Heading */}  
         <h1 className="text-white font-bold leading-[1.1] mb-6">
           <span className="block text-[20px] sm:text-[36px] md:text-[44px] ">
             To Build Care Communities and
