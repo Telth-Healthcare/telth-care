@@ -1,4 +1,4 @@
-import heroBanner from "@/assets/Background.svg";
+import heroBanner from "@/assets/akkanote.png";
 
 interface HeroSectionProps {
   onApply: () => void;
@@ -79,52 +79,61 @@ function HeroContent({
   onApply: () => void;
 }) {
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="flex flex-col justify-between h-full max-w-xl">
+
+      {/* Top Label */}
       <div>
-        {/* Label */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-6 h-px bg-white/40" />
-          <span className="text-[10px] md:text-[11px] font-bold tracking-[2px] uppercase text-white/60">
+          <div className="w-8 h-[1px] bg-white/40" />
+          <span className="text-[11px] font-semibold tracking-[2px] uppercase text-white/60">
             For Healthcare Professionals
           </span>
         </div>
 
         {/* Badge */}
-        <h4 className="inline-block bg-white/10 border border-white/20 text-white/90 text-[16px] sm:text-[18px] md:text-[20px] font-medium px-5 py-3 rounded-full mb-6">
-          Care from the heart. Delivered at home.
-        </h4>
-
+        <div className="mb-6">
+          <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[14px] sm:text-[16px] font-medium px-6 py-3 rounded-full shadow-sm">
+            Calling Care Managers
+          </span>
+        </div>
+            <br />
         {/* Heading */}
-        <h1 className="text-white text-[28px] sm:text-[34px] md:text-[40px] lg:text-[46px] font-bold leading-[1.1] mb-5">
-          Build your own
-          <br />
-          practice.
-          <br />
-          <em className="text-white/70 italic">On your terms.</em>
+        <h1 className="text-white font-bold leading-[1.1] mb-6">
+          <span className="block text-[20px] sm:text-[36px] md:text-[44px] ">
+            To Build Care Communities and
+          </span>
+
+          {/* Gradient Flow Text */}
+          <span className="block text-[34px] sm:text-[42px] md:text-[40px] font-semibold italic mt-2 bg-gradient-to-r from-white/80 via-white to-white/60 bg-clip-text text-transparent">
+            Be a Health Care Guardians
+          </span>
         </h1>
 
         {/* Description */}
-        <p className="text-white/70 text-[14px] sm:text-[15px] md:text-[16px] leading-[1.7] max-w-md mb-8">
+        <p className="text-white/70 text-[15px] md:text-[16px] leading-[1.7] max-w-md mb-8">
           Visit patients at home. Run a 90-parameter health check in 15
-          minutes. Earn from every service you deliver — without a clinic, a
-          hospital, or a boss.
+          minutes. Earn from every service you deliver — without a clinic,
+          hospital, or boss.
         </p>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
           <button
-            onClick={onApply}
-            className="bg-white text-teal-800 font-bold text-[14px] md:text-[15px] px-6 py-3 rounded-xl hover:shadow-xl transition"
+            onClick={() =>
+              window.open("https://app.telth.care/ccm-auth/signup", "_self")
+            }
+            className="bg-white text-teal-700 font-semibold text-[15px] px-7 py-3 rounded-xl shadow-md hover:shadow-xl hover:scale-[1.02] transition"
           >
             Start Your Practice
           </button>
+
           <button
             onClick={() =>
               document
                 .getElementById("day-in-life")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="border border-white/30 text-white/90 font-semibold text-[14px] md:text-[15px] px-6 py-3 rounded-xl hover:bg-white/10 transition"
+            className="border border-white/30 text-white/90 font-medium text-[15px] px-7 py-3 rounded-xl hover:bg-white/10 transition"
           >
             See How It Works
           </button>
@@ -132,10 +141,10 @@ function HeroContent({
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/15 mt-10 max-w-md">
+      <div className="grid grid-cols-3 gap-8 pt-10 border-t border-white/10 mt-12 max-w-md">
         {stats.map((s) => (
           <div key={s.val}>
-            <div className="text-white text-[22px] md:text-[26px] font-bold">
+            <div className="text-white text-[24px] md:text-[28px] font-bold">
               {s.val}
             </div>
             <div className="text-white/50 text-[11px] md:text-[12px] mt-1">
