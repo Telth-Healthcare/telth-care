@@ -14,7 +14,7 @@ export default function WebinarSection() {
       e.preventDefault();
       
       try {
-        const response = await apiClient.post('web/webinars/', {
+        const response = await apiClient.postWebinar('web/webinars/', {
           email: state.email,
           description: "Join our free webinar." ,
         });

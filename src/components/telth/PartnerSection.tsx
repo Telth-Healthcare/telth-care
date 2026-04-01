@@ -96,7 +96,7 @@ export default function PartnerSection() {
     setSubmitStatus('idle');
     
     try {
-      const response = await apiClient.post('web/contacts/', {
+      const response = await apiClient.post('api/submit', {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
