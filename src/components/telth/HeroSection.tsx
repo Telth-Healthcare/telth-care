@@ -106,7 +106,7 @@ function HeroContent({
           {/* Gradient Flow Text */}
           <span className="block text-[34px] sm:text-[42px] md:text-[40px] font-semibold italic mt-2 bg-gradient-to-r from-white/80 via-white to-white/60 bg-clip-text text-transparent">
             Be a Health Care Guardians
-          </span>
+          </span> 
         </h1>
 
         {/* Description */}
