@@ -99,7 +99,7 @@ function HeroContent({
             <br />
         {/* Heading */}  
         <h1 className="text-white font-bold leading-[1.1] mb-6">
-          <span className="block text-[30px] sm:text-[44px] md:text-[44px] ">
+          <span className="block text-[40px] sm:text-[44px] md:text-[44px] ">
             To Build Care Communities and
           </span> 
 
