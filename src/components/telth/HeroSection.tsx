@@ -30,7 +30,7 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
 
         {/* Left gradient fade */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 "
           style={{
             background:
               "linear-gradient(90deg,#0A6B62 0%,#0D9488 35%,rgba(13,148,136,0.85) 43.5%,rgba(13,148,136,0.55) 0%,rgba(13,148,136,0.25) 0%,rgba(13,148,136,0.05) 0%,transparent 0%)",
@@ -99,7 +99,7 @@ function HeroContent({
             <br />
         {/* Heading */}  
         <h1 className="text-white font-bold leading-[1.1] mb-6">
-          <span className="block text-[20px] sm:text-[36px] md:text-[44px] ">
+          <span className="block text-[30px] sm:text-[44px] md:text-[44px] ">
             To Build Care Communities and
           </span> 
 
