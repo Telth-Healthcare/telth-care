@@ -12,61 +12,42 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
   ];
 
   return (
-    <section className="relative overflow-hidden">
+    // HeroSection.tsx — key fix: no gradient overlay, true 50/50 flex split
 
-      {/* ═══════════════════════════════════
-          DESKTOP (lg+) — your original layout
-      ════════════════════════════════════ */}
-      <div className="hidden lg:block relative min-h-[calc(100vh-64px)]">
+<section className="relative overflow-hidden">
 
-        {/* Right image — fixed to right side */}
-        <div className="absolute inset-y-0 right-0 w-[60%]">
-          <img
-            src={heroBanner}
-            alt="Care Manager conducting home health assessment"
-            className="w-full h-full object-contain"
-          />
-        </div>
+  {/* ── DESKTOP ── */}
+  <div className="hidden lg:flex min-h-[calc(100vh-64px)]">
 
-        {/* Left gradient fade */}
-        <div
-          className="absolute inset-0 "
-          style={{
-            background:
-              "linear-gradient(90deg,#0A6B62 0%,#0D9488 35%,rgba(13,148,136,0.85) 43.5%,rgba(13,148,136,0.55) 0%,rgba(13,148,136,0.25) 0%,rgba(13,148,136,0.05) 0%,transparent 0%)",
-          }}
-        />
+    {/* LEFT — teal bg, all content */}
+    <div className="w-[48%] bg-gradient-to-br from-[#0A6B62] to-[#0D9488]
+                    flex items-center px-14 py-16">
+      <HeroContent stats={stats} onApply={onApply} />
+    </div>
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto flex items-center min-h-[calc(100vh-64px)]">
-          <div className="w-[55%] px-4 md:px-10 py-14 flex flex-col justify-between">
-            <HeroContent stats={stats} onApply={onApply} />
-          </div>
-        </div>
-      </div>
+    {/* RIGHT — same teal bg, image fills completely, NO gap */}
+    <div className="w-[52%] bg-[#0D9488] flex items-stretch">
+      <img
+        src={heroBanner}
+        alt="Care Manager conducting home health assessment"
+        className="w-full h-full object-cover object-top"
+        // object-cover fills the box; object-top anchors face at top
+      />
+    </div>
 
-      {/* ═══════════════════════════════════
-          MOBILE (< lg) — clean stacked layout
-      ════════════════════════════════════ */}
-      <div className="lg:hidden flex flex-col">
+  </div>
 
-        {/* Solid teal content block */}
-        <div className="bg-[#0A6B62] px-6 py-10">
-          <HeroContent stats={stats} onApply={onApply} />
-        </div>
+  {/* ── MOBILE ── */}
+  <div className="lg:hidden flex flex-col">
+    <div className="bg-[#0A6B62] px-6 py-10">
+      <HeroContent stats={stats} onApply={onApply} />
+    </div>
+    <div className="bg-[#0D9488]">
+      <img src={heroBanner} alt="..." className="w-full object-cover" />
+    </div>
+  </div>
 
-        {/* Full image — no gradient, fully visible */}
-        <div className="bg-[#0D9488] px-4 pb-10 pt-4">
-          <img
-            src={heroBanner}
-            alt="Care Manager conducting home health assessment"
-            className="w-full rounded-xl object-cover"
-          />
-        </div>
-
-      </div>
-
-    </section>
+</section>
   );
 }
 
