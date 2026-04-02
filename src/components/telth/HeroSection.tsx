@@ -130,7 +130,7 @@ function HeroContent({
           <button
             onClick={() =>
               document
-                .getElementById("day-in-life")
+                .getElementById("how-it-works")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
             className="border border-white/30 text-white/90 font-medium text-[15px] px-7 py-3 rounded-xl hover:bg-white/10 transition"
