@@ -1,7 +1,7 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import careImg from "../../assets/Nurses.png";
+import careImg from "../../assets/IN a day -1.png";
 import doctorImg from "../../assets/Doctor.png";
-import diplomaImg from "../../assets/Diploma.png";
+import earnImg from "../../assets/Earning or End of Day.png";
 
 
 const rows = [
@@ -35,7 +35,7 @@ const rows = [
       "Visit fees, care plan commissions, medicine margins and referral income — all tracked automatically.",
       "Payouts are consolidated and transferred on a regular cycle, directly to your bank account."
     ],
-    image: diplomaImg,
+    image: earnImg,
     reverse: false,
   },
 ];

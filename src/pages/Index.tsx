@@ -25,9 +25,9 @@ const Index = () => {
       <Navbar />
       <HeroSection onApply={() => setModalOpen(true)} />
       <TrustBar />
+      <HowItWorksSection /> {/* Onboarding steps — moved before DayInLife */}
       <WhatIsCMSection />
       <WhoIsItForSection />
-      <HowItWorksSection /> {/* Onboarding steps — moved before DayInLife */}
       <DayInLifeSection />
       <EarningsSection />
       <IncomeStreamsSection />

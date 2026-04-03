@@ -14,7 +14,7 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#0A6B62] to-[#0D9488]">
 
-      {/* ── MOBILE (< md) ── stacked vertically */}
+      {/* ── MOBILE (< md) ── */}
       <div className="flex flex-col md:hidden">
         <div className="px-6 pt-10 pb-8">
           <HeroContent stats={stats} onApply={onApply} />
@@ -29,7 +29,7 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* ── TABLET (md → lg) ── stacked, wider content, taller image */}
+      {/* ── TABLET (md → lg) ── */}
       <div className="hidden md:flex lg:hidden flex-col">
         <div className="px-10 pt-12 pb-8">
           <HeroContent stats={stats} onApply={onApply} />
@@ -44,13 +44,11 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* ── LAPTOP (lg → xl) ── side-by-side, left gets MORE space */}
+      {/* ── LAPTOP (lg → xl) ── */}
       <div className="hidden lg:flex xl:hidden min-h-[calc(100vh-64px)]">
-        {/* LEFT — content, 55% width so text never gets squeezed */}
-        <div className="w-[55%] flex items-center px-10 py-14 xl:px-14">
+        <div className="w-[55%] flex items-center px-10 py-14">
           <HeroContent stats={stats} onApply={onApply} />
         </div>
-        {/* RIGHT — image, 45% */}
         <div className="w-[45%] relative overflow-hidden">
           <img
             src={heroBanner}
@@ -60,13 +58,11 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* ── DESKTOP (xl+) ── classic 50/50 with breathing room */}
+      {/* ── DESKTOP (xl+) ── */}
       <div className="hidden xl:flex min-h-[calc(100vh-64px)]">
-        {/* LEFT */}
         <div className="w-[50%] flex items-center px-16 py-16">
           <HeroContent stats={stats} onApply={onApply} />
         </div>
-        {/* RIGHT */}
         <div className="w-[50%] relative overflow-hidden">
           <img
             src={heroBanner}
@@ -80,7 +76,6 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
   );
 }
 
-/* ─── Shared content block ─── */
 function HeroContent({
   stats,
   onApply,
@@ -95,31 +90,32 @@ function HeroContent({
       <div className="flex items-center gap-3 mb-5">
         <div className="w-8 h-[1px] bg-white/40" />
         <span className="text-[11px] font-semibold tracking-[2px] uppercase text-white/60">
-          For Healthcare Professionals
+          Calling Care Managers
         </span>
       </div>
 
       {/* Badge */}
       <div className="mb-5">
-        <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[14px] sm:text-[15px] font-medium px-5 py-2.5 rounded-full shadow-sm">
-          Calling Care Managers
+        <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-[13px] sm:text-[14px] font-medium px-5 py-2.5 rounded-full shadow-sm">
+          One Family. One HealthPay Care Plan. Building Healthier Communities, Together.
         </span>
       </div>
 
-      {/* Heading — responsive font sizes that scale down on laptop */}
+      {/* Heading */}
       <h1 className="text-white font-bold leading-[1.1] mb-5">
-        <span className="block text-[32px] sm:text-[38px] md:text-[40px] lg:text-[36px] xl:text-[44px]">
-          To Build Care Communities and
+        <span className="block text-[30px] sm:text-[36px] md:text-[38px] lg:text-[34px] xl:text-[42px]">
+          Build Care Communities.
         </span>
-        <span className="block text-[28px] sm:text-[34px] md:text-[36px] lg:text-[32px] xl:text-[40px] font-semibold italic mt-2 bg-gradient-to-r from-white/80 via-white to-white/60 bg-clip-text text-transparent">
-          Be a Health Care Guardians
+        <span className="block text-[26px] sm:text-[32px] md:text-[34px] lg:text-[30px] xl:text-[38px] font-semibold italic mt-2 bg-gradient-to-r from-white/80 via-white to-white/60 bg-clip-text text-transparent">
+          Become a Healthcare Guardian.
         </span>
       </h1>
 
       {/* Description */}
-      <p className="text-white/70 text-[14px] md:text-[15px] lg:text-[14px] xl:text-[16px] leading-[1.7] max-w-md mb-7">
-        Visit patients at home. Run a 90-parameter health check in 15 minutes.
-        Earn from every service you deliver — without a clinic, hospital, or boss.
+      <p className="text-white/75 text-[14px] md:text-[15px] lg:text-[13.5px] xl:text-[15px] leading-[1.8] max-w-lg mb-7">
+        Partner with family physicians to deliver precise, compassionate, personalised care at home.
+        Powered by the <strong className="text-white/90 font-semibold">Telth Health Examination System</strong> — assess up to 90 health parameters in under 15 minutes,
+        with physician oversight, care coordination, and medication delivery within 1 hour.
       </p>
 
       {/* CTA Buttons */}
