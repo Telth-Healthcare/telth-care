@@ -2,40 +2,34 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const profiles = [
   {
-    role: "Nursing",
+    title: "10+2 Science Students",
+    description: "Aspiring healthcare entrants. Start your career in community care with zero prior clinical experience — Telth trains you from the ground up.",
+    tag: "Entry Level",
+  },
+  {
+    title: "Diploma Holders",
+    description: "Nursing diploma, DMLT, paramedic, or health assistant graduates looking to practise independently with full technological support.",
+    tag: "Diploma / Certificate",
+  },
+  {
     title: "Registered Nurses",
-    desc: "Flexible working, direct patient care — without hospital hierarchy or fixed shifts.",
-    image: "https://images.unsplash.com/photo-1584515933487-779824d29309",
+    description: "GNM or BSc Nursing qualified? Build a flexible, independent care practice. Earn ₹30–80K/month on your own schedule.",
+    tag: "GNM / BSc Nursing",
   },
   {
-    role: "Medicine",
-    title: "MBBS Doctors",
-    desc: "Expand your practice beyond the clinic and earn from multiple patient channels simultaneously.",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2",
-  },
-  {
-    role: "Pharmacy",
     title: "Pharmacists",
-    desc: "Offer comprehensive home health reviews and medication management as a standalone service.",
-    image: "https://images.unsplash.com/photo-1585435557343-3b092031a831",
+    description: "D.Pharm or B.Pharm holders who want to extend beyond dispensing — deliver diagnostics, care plans, and chronic disease management.",
+    tag: "D.Pharm / B.Pharm",
   },
   {
-    role: "Diagnostics",
-    title: "Lab Technicians",
-    desc: "Conduct advanced point-of-care testing with AI-enabled devices — at any location.",
-    image: "https://images.unsplash.com/photo-1579154204601-01588f351e67",
+    title: "Doctors & MBBS",
+    description: "Qualified physicians who want to lead a networked community care model, supervise CMs, and deliver P3DSC-powered care.",
+    tag: "MBBS / MD",
   },
   {
-    role: "Community Care",
-    title: "Social Workers",
-    desc: "Focus on holistic patient well-being, follow-up care, and family support in the community.",
-    image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b",
-  },
-  {
-    role: "Practice Expansion",
-    title: "Clinic Owners",
-    desc: "Build a satellite network of CMs linked to your physicians and extend care beyond your walls.",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef",
+    title: "Clinic & Hospital Owners",
+    description: "Extend your facility's reach into the community. Deploy Care Managers under your brand using Telth's full ecosystem.",
+    tag: "Operator",
   },
 ];
 
@@ -66,19 +60,9 @@ export default function WhoIsItForSection() {
               key={p.title}
               className={`bg-card rounded-2xl overflow-hidden border border-border hover:border-primary hover:-translate-y-1.5 hover:shadow-xl transition-all duration-200 group stagger-${i + 1}`}
             >
-
-              {/* Image */}
-              <img
-                src={p.image}
-                alt={p.title}
-                loading="lazy"
-                className="w-full object-cover"
-                style={{ aspectRatio: "3/2" }}
-              />
-
               <div className="p-6">
                 <div className="text-[10px] font-bold tracking-[1.5px] uppercase text-primary mb-2">
-                  {p.role}
+                  {p.tag}
                 </div>
 
                 <h3 className="text-foreground text-[18px] font-bold mb-2 leading-snug font-display">
@@ -86,10 +70,9 @@ export default function WhoIsItForSection() {
                 </h3>
 
                 <p className="text-muted-foreground text-[14px] leading-relaxed">
-                  {p.desc}
+                  {p.description}
                 </p>
               </div>
-
             </div>
           ))}
         </div>

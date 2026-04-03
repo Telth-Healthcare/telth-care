@@ -11,6 +11,7 @@ import IncomeStreamsSection from "@/components/telth/IncomeStreamsSection";
 import WhatTelthGivesSection from "@/components/telth/WhatTelthGivesSection";
 import TestimonialSection from "@/components/telth/TestimonialSection";
 import WebinarSection from "@/components/telth/WebinarSection";
+import PartnerLandingSection from "@/components/telth/PartnerLandingSection";
 import PartnerSection from "@/components/telth/PartnerSection";
 import FAQSection from "@/components/telth/FAQSection";
 import Footer from "@/components/telth/Footer";
@@ -21,19 +22,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <Navbar  />
+      <Navbar />
       <HeroSection onApply={() => setModalOpen(true)} />
       <TrustBar />
       <WhatIsCMSection />
       <WhoIsItForSection />
-      <HowItWorksSection />
+      <HowItWorksSection /> {/* Onboarding steps — moved before DayInLife */}
       <DayInLifeSection />
       <EarningsSection />
       <IncomeStreamsSection />
       <WhatTelthGivesSection />
       <TestimonialSection />
       <WebinarSection />
-      <PartnerSection />
+      <PartnerLandingSection /> {/* NEW: why-partner pitch */}
+      <PartnerSection /> {/* Rebuilt with 3 tabs */}
       <FAQSection />
       <Footer />
       <ApplicationModal open={modalOpen} onClose={() => setModalOpen(false)} />
