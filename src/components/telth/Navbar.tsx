@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-2.5">
           {/* Partner Login */}
           <a
-            href="https://mytelth.com"
+            href="https://app.telth.care/admin/signin"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-[#0D9488] text-[#0D9488] text-sm font-medium hover:bg-[#E6F7F6] transition-colors"

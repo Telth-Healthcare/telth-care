@@ -37,7 +37,7 @@ export default function PartnerLandingSection() {
         <p className="text-[#0D9488] text-sm font-semibold uppercase tracking-widest mb-3">
           Build with Telth
         </p>
-        <h2 className="font-['Playfair_Display'] text-3xl md:text-4xl text-white mb-4">
+        <h2 className=" text-3xl md:text-4xl text-white mb-4">
           The network grows through partners
         </h2>
         <p className="text-gray-400 mb-12 max-w-2xl text-sm">
