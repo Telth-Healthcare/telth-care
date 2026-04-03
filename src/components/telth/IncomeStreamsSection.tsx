@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import inCmmImg from "../../assets/IN a day -1.png";
 
 const streams = [
   { title: "Per-Visit Fee", desc: "Earn ₹150–250 per home visit. The more patients you serve, the higher your base income every month.", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
@@ -21,7 +22,7 @@ export default function IncomeStreamsSection() {
           {/* Image */}
           <div className="md:sticky md:top-24">
             <img
-              src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=900&q=80"
+              src={inCmmImg}
               alt="Care manager checking earnings dashboard"
               loading="lazy"
               className="w-full rounded-2xl object-cover"

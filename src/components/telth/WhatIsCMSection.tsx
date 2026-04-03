@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import whatIsCMImage from "../../assets/What is CM.png";
 
 const steps = [
   {
@@ -40,7 +41,7 @@ export default function WhatIsCMSection() {
           {/* Image */}
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80"
+              src={whatIsCMImage}
               alt="Healthcare worker performing home health assessment with patient"
               loading="lazy"
               className="w-full rounded-2xl object-cover"

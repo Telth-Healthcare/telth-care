@@ -1,4 +1,8 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import careImg from "../../assets/Nurses.png";
+import doctorImg from "../../assets/Doctor.png";
+import diplomaImg from "../../assets/Diploma.png";
+
 
 const rows = [
   {
@@ -9,7 +13,7 @@ const rows = [
       "All bookings managed through the Telth CM App. You accept visits that fit your schedule.",
       "Patient history, care plan details, and previous reports are available before you arrive."
     ],
-    image: "https://images.unsplash.com/photo-1580281657527-47f249e8f4df?auto=format&fit=crop&w=900&q=80",
+    image: careImg,
     reverse: false,
   },
   {
@@ -20,7 +24,7 @@ const rows = [
       "The HES device captures 90+ parameters — results upload instantly to the patient's health record.",
       "AI-assisted insights guide your care recommendations without replacing your clinical judgment."
     ],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80",
+    image: doctorImg,
     reverse: true,
   },
   {
@@ -31,7 +35,7 @@ const rows = [
       "Visit fees, care plan commissions, medicine margins and referral income — all tracked automatically.",
       "Payouts are consolidated and transferred on a regular cycle, directly to your bank account."
     ],
-    image: "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=900&q=80",
+    image: diplomaImg,
     reverse: false,
   },
 ];

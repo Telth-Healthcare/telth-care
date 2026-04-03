@@ -1,4 +1,4 @@
-import heroBanner from "@/assets/akkanote.png";
+import heroBanner from "../../assets/hero section.png";
 
 interface HeroSectionProps {
   onApply: () => void;
