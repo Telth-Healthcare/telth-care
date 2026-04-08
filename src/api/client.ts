@@ -3,7 +3,7 @@ import { handleAxiosError } from "./handleAxiosError";
 import { toast } from "sonner";
 
 const formBaseUrl = import.meta.env.VITE_API_BASE_URL;        // http://localhost:3000/
-const webinarBaseUrl = "https://cmccm.vercel.app";            // external webinar app
+const webinarBaseUrl = "https://api.telth.care/";            // external webinar app
 
 const defaultHeaders = {
   Accept: "application/json",
