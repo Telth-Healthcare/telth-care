@@ -18,36 +18,40 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         {/* LEFT */}
         <div className="w-full md:w-1/2 flex items-center justify-center
                         px-8 xl:px-16
-                        pt-24 pb-10 md:pt-28 md:pb-12">   {/* pt-24/28 = clears fixed navbar */}
+                        pt-24 pb-10 md:pt-8 md:pb-12">   {/* pt-24/28 = clears fixed navbar */}
           <HeroContent stats={stats} onApply={onApply} />
         </div>
 
         {/* RIGHT */}
-        <div className="w-full md:w-1/2 relative min-h-[340px] md:min-h-0 overflow-hidden">
-           {/* //mobile screen */}
-           <img
+<div className="w-full md:w-1/2 relative min-h-[340px] md:min-h-0">
+
+  {/* Mobile only: < 768px */}
+  <img
     src={heroBanner}
     alt="Care Manager conducting home health assessment"
-    className="
-      w-full 
-      max-w-full
-      h-[80%] sm:h-[80%] md:h-[80%] lg:h-full
-      object-contain md:object-cover
-    "
+    className="block md:hidden w-full h-auto object-contain"
   />
-          
-          {/* //large size */}
-          <img
-            src={heroBanner}
-            alt="Care Manager conducting home health assessment"
-            className="hidden md:block   h-[260px] sm:h-[340px] md:h-[400px] lg:h-full  w-full 
-    max-w-full
-    h-[260px] sm:h-[320px] md:h-[400px] lg:h-full
-    object-contain md:object-cover
-    block
- absolute inset-0 w-full h-full object-cover object-top sm:object-contain md:object-cover "
-          />
-        </div>
+
+  {/* Tablet only: 768px–1023px */}
+  <img
+    src={heroBanner}
+    alt="Care Manager conducting home health assessment"
+    className="hidden md:block lg:hidden
+               w-full h-full
+               object-contain object-top mt-14
+               "        // nudges image down slightly on tablet
+  />
+
+  {/* Desktop: 1024px+ */}
+  <img
+    src={heroBanner}
+    alt="Care Manager conducting home health assessment"
+    className="hidden lg:block
+               absolute inset-0 w-full h-full
+               object-contain object-bottom"   // object-bottom keeps bag visible
+  />
+
+</div>
 
       </div>
     </section>

@@ -20,7 +20,7 @@ export default function Navbar() {
           <img src={logo} alt="telth.care" className="h-10 w-auto" />
         </a>
 
-        <ul className="hidden md:flex items-center gap-8 list-none">
+        <ul className="hidden md:flex items-center gap-6 list-none">
           {links.map((l) => (
             <li key={l.href}>
               <a
@@ -39,8 +39,8 @@ export default function Navbar() {
             href="https://app.telth.care/admin/signin"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-[#0D9488] text-[#0D9488] text-sm font-medium hover:bg-[#E6F7F6] transition-colors"
-          >
+            className="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-[#0D9488] text-[#0D9488] text-sm  font-medium hover:bg-[#E6F7F6] transition-colors"
+          > 
             Partner Login
           </a>
           <button
