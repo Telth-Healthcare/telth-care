@@ -23,16 +23,29 @@ export default function HeroSection({ onApply }: HeroSectionProps) {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full md:w-1/2 relative min-h-[340px] md:min-h-0">
+        <div className="w-full md:w-1/2 relative min-h-[340px] md:min-h-0 overflow-hidden">
+           {/* //mobile screen */}
+           <img
+    src={heroBanner}
+    alt="Care Manager conducting home health assessment"
+    className="
+      w-full 
+      max-w-full
+      h-[80%] sm:h-[80%] md:h-[80%] lg:h-full
+      object-contain md:object-cover
+    "
+  />
+          
+          {/* //large size */}
           <img
             src={heroBanner}
             alt="Care Manager conducting home health assessment"
-            className="w-full h-[300px] sm:h-[400px] object-cover object-top md:hidden"
-          />
-          <img
-            src={heroBanner}
-            alt="Care Manager conducting home health assessment"
-            className="hidden md:block absolute inset-0 w-full h-full object-cover object-top"
+            className="hidden md:block   h-[260px] sm:h-[340px] md:h-[400px] lg:h-full  w-full 
+    max-w-full
+    h-[260px] sm:h-[320px] md:h-[400px] lg:h-full
+    object-contain md:object-cover
+    block
+ absolute inset-0 w-full h-full object-cover object-top sm:object-contain md:object-cover "
           />
         </div>
 
