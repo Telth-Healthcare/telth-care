@@ -92,48 +92,44 @@ export default function WhatIsCMSection() {
 
   return (
     <section id="what-is-cm" className="bg-card py-16 md:py-24">
+      
+      {/* ✅ FIX 2: ref div must also have no overflow constraint */}
       <div ref={ref} className="max-w-6xl mx-auto px-5 md:px-6">
 
-        {/* 
-          ✅ KEY FIX: Use flexbox NOT grid. 
-          Grid stretches children to equal height which breaks sticky.
-          Flex with items-start lets each column be its natural height.
-          The left column becomes "short" (just the sticky image size),
-          while the right column is tall (all steps) — sticky works perfectly.
-        */}
+        {/* ✅ FIX 3: items-start is mandatory — without it flex stretches
+            both cols to equal height, so sticky has no room to move */}
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-24 items-start">
 
-          {/* ── LEFT COLUMN: Sticky image ── */}
-          {/* 
-            ✅ width: set explicit width so flex doesn't collapse it
-            ✅ position: sticky with top offset
-            ✅ NO overflow hidden on this or any ancestor
-            ✅ self-start: critical — don't stretch to match right column height
-          */}
-          <div
-            className="hidden md:block md:w-[45%] lg:w-[48%] flex-shrink-0 self-start"
-            style={{ position: "sticky", top: "100px" }}
-          >
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src={imgSrc}
-                alt={steps[activeStep].title}
-                className="w-full object-cover"
-                style={{
-                  opacity: imgFading ? 0 : 1,
-                  transition: "opacity 0.25s ease",
-                  display: "block",
-                }}
-              />
-            </div>
-
-            {/* Floating badge */}
-            <div className="absolute bottom-4 right-4 bg-card rounded-xl shadow-xl px-4 py-3 border border-border min-w-[150px] backdrop-blur-sm">
-              <div className="text-primary text-[28px] font-bold leading-none font-display">
-                15 min
+          {/* LEFT COLUMN */}
+          {/* ✅ FIX 4: Use Tailwind sticky class + top-[100px] instead of inline style
+              Inline style works too, but Tailwind handles it more reliably with
+              the cascade. Critical: self-start overrides any stretch alignment */}
+          <div className="hidden md:block md:w-[45%] lg:w-[48%] flex-shrink-0 sticky top-[100px] self-start">
+            
+            {/* ✅ FIX 5: The inner wrapper uses relative for the badge positioning —
+                BUT must NOT have overflow-hidden at this level (it clips the badge) */}
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                {/* overflow-hidden moved INSIDE to only clip the image, not the badge */}
+                <img
+                  src={imgSrc}
+                  alt={steps[activeStep].title}
+                  className="w-full object-cover block"
+                  style={{
+                    opacity: imgFading ? 0 : 1,
+                    transition: "opacity 0.25s ease",
+                  }}
+                />
               </div>
-              <div className="text-muted-foreground text-[12px] font-medium mt-1">
-                Complete 90-parameter checkup
+
+              {/* Badge stays outside overflow-hidden wrapper so it's not clipped */}
+              <div className="absolute bottom-4 right-4 bg-card rounded-xl shadow-xl px-4 py-3 border border-border min-w-[150px] backdrop-blur-sm">
+                <div className="text-primary text-[28px] font-bold leading-none font-display">
+                  15 min
+                </div>
+                <div className="text-muted-foreground text-[12px] font-medium mt-1">
+                  Complete 90-parameter checkup
+                </div>
               </div>
             </div>
           </div>
