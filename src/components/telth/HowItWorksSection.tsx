@@ -53,9 +53,9 @@ const PHASES: Phase[] = [
       {
         num: 9, title: "CME, Language Qualification & Destination Licensing", desc: "Three concurrent tracks to complete in parallel before your international transfer.",
         subSections: [
-          { label: "9a — Continuing Medical Education", content: <p className="text-[15px] text-white/50 leading-[1.75]">Accredited CME covering advanced clinical topics, longevity science, AI health technology, and evidence-based care practices.</p> },
+          { label: "9a — Continuing Medical Education", content: <p className="text-[13px] text-white/75 leading-[1.6]">Accredited CME covering advanced clinical topics, longevity science, AI health technology, and evidence-based care practices.</p> },
           { label: "9b — Language Qualification", content: null },
-          { label: "9c — Destination Licensing", content: (<><p className="text-[15px] text-white/50 leading-[1.75] mb-3">Telth provides documentation support and accredited training records for regulatory registration.</p><div className="flex flex-wrap gap-[7px]">{["🇬🇧 NMC / HCPC (UK)", "🇦🇺 AHPRA (Australia)", "🇨🇦 CNAS (Canada)", "🇩🇪 Approbation (Germany)", "🇦🇪 DHA / MOH (UAE)", "🌐 + Others"].map((t) => (<span key={t} className="text-[12px] font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/40">{t}</span>))}</div></>) },
+          { label: "9c — Destination Licensing", content: (<><p className="text-[13px] text-white/75 leading-[1.6] mb-2">Telth provides documentation support and accredited training records for regulatory registration.</p><div className="flex flex-wrap gap-[5px]">{["🇬🇧 NMC / HCPC (UK)", "🇦🇺 AHPRA (Australia)", "🇨🇦 CNAS (Canada)", "🇩🇪 Approbation (Germany)", "🇦🇪 DHA / MOH (UAE)", "🌐 + Others"].map((t) => (<span key={t} className="text-[11px] font-semibold px-[9px] py-[3px] rounded-full bg-white/5 border border-white/10 text-white/80">{t}</span>))}</div></>) },
         ],
         langGrid: [{ label: "IELTS / OET", desc: "UK, Australia, Canada, New Zealand, UAE" }, { label: "European Languages", desc: "German (B2/C1), French (DELF B2), Spanish (DELE), Dutch, Italian" }],
       },
@@ -67,43 +67,44 @@ const PHASES: Phase[] = [
 
 const STATS = [
   { n: 6,   suffix: "",  label: "Phases" },
-  { n: 11,  suffix: "",  label: "Steps total" },
+  { n: 11,  suffix: "",  label: "Steps" },
   { n: 12,  suffix: "+", label: "Specialisations" },
   { n: 10,  suffix: "+", label: "Countries" },
-  { n: 250, suffix: "",  label: "Plans/CM/month" },
+  { n: 250, suffix: "",  label: "Plans/CM" },
 ];
 
+/* ─── counter hook ─── */
 function useCounter(target: number, duration = 1200, active = false) {
-  const [value, setValue] = useState(0);
+  const [v, setV] = useState(0);
   useEffect(() => {
     if (!active) return;
-    let start = 0;
+    let s = 0;
     const step = Math.ceil(target / (duration / 16));
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setValue(target); clearInterval(timer); } else setValue(start);
+    const t = setInterval(() => {
+      s += step;
+      if (s >= target) { setV(target); clearInterval(t); } else setV(s);
     }, 16);
-    return () => clearInterval(timer);
+    return () => clearInterval(t);
   }, [target, duration, active]);
-  return value;
+  return v;
 }
 
+/* ─── small atoms ─── */
 function StatCell({ n, suffix, label, animate }: { n: number; suffix: string; label: string; animate: boolean }) {
-  const val = useCounter(n, n > 50 ? 1400 : 900, animate);
+  const v = useCounter(n, n > 50 ? 1400 : 900, animate);
   return (
-    <div className="px-3 py-[18px] text-center stat-cell">
-      {/* number: slightly smaller on mobile so 5 cells don't overflow */}
-      <div className="text-[22px] sm:text-[30px] font-extrabold text-white leading-none mb-[5px]">
-        {val}<em className="not-italic text-[#099488]">{suffix}</em>
+    <div className="px-2 py-3 text-center">
+      <div className="text-[17px] sm:text-[22px] font-extrabold text-white leading-none mb-[2px]">
+        {v}<em className="not-italic text-[#099488]">{suffix}</em>
       </div>
-      <div className="text-[11px] text-white/35 font-medium">{label}</div>
+      <div className="text-[10px] text-white/70 font-medium">{label}</div>
     </div>
   );
 }
 
 function Tag({ text, teal }: { text: string; teal?: boolean }) {
   return (
-    <span className={`text-[12px] font-semibold px-3 py-1 rounded-full border transition-all duration-300 hover:scale-105 ${teal ? "bg-[rgba(9,148,136,0.13)] border-[rgba(9,148,136,0.33)] text-[#099488] hover:bg-[rgba(9,148,136,0.22)]" : "bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white/60"}`}>
+    <span className={`text-[11px] font-semibold px-[9px] py-[3px] rounded-full border ${teal ? "bg-[rgba(9,148,136,0.13)] border-[rgba(9,148,136,0.33)] text-[#099488]" : "bg-white/5 border-white/10 text-white/80"}`}>
       {text}
     </span>
   );
@@ -112,89 +113,88 @@ function Tag({ text, teal }: { text: string; teal?: boolean }) {
 function Pill({ text, teal, index }: { text: string; teal?: boolean; index: number }) {
   return (
     <span
-      className={`text-[13px] font-semibold px-[14px] py-[5px] rounded-full border pill-pop ${teal ? "bg-[rgba(9,148,136,0.14)] border-[rgba(9,148,136,0.32)] text-[#099488]" : "bg-white/5 border-white/[0.09] text-white/52 hover:bg-white/10 hover:text-white/70 hover:border-white/20"} transition-all duration-200`}
-      style={{ animationDelay: `${index * 40}ms` }}
+      className={`text-[11px] font-semibold px-[10px] py-[3px] rounded-full border ${teal ? "bg-[rgba(9,148,136,0.14)] border-[rgba(9,148,136,0.32)] text-[#099488]" : "bg-white/5 border-white/[0.09] text-white/60"}`}
+      style={{ animationDelay: `${index * 22}ms` }}
     >
       {text}
     </span>
   );
 }
 
-function ForkCardEl({ card, index }: { card: ForkCard; index: number }) {
-  const isTeal = card.type === "tl";
+function ForkCard({ card, index }: { card: ForkCard; index: number }) {
+  const teal = card.type === "tl";
   return (
     <div
-      className={`rounded-[13px] p-[16px_18px] fork-slide transition-all duration-300 hover:scale-[1.02] ${isTeal ? "bg-[rgba(9,148,136,0.09)] border border-[rgba(9,148,136,0.28)] hover:bg-[rgba(9,148,136,0.16)] hover:border-[rgba(9,148,136,0.5)]" : "bg-[rgba(251,191,36,0.06)] border border-dashed border-[rgba(251,191,36,0.28)] hover:bg-[rgba(251,191,36,0.12)] hover:border-[rgba(251,191,36,0.5)]"}`}
-      style={{ animationDelay: `${index * 80}ms` }}
+      className={`rounded-[10px] p-[11px_13px] ${teal ? "bg-[rgba(9,148,136,0.09)] border border-[rgba(9,148,136,0.28)]" : "bg-[rgba(251,191,36,0.06)] border border-dashed border-[rgba(251,191,36,0.28)]"}`}
+      style={{ animationDelay: `${index * 45}ms` }}
     >
-      <div className={`text-[11px] font-extrabold tracking-[1px] uppercase mb-[7px] ${isTeal ? "text-[#099488]" : "text-[rgb(251,191,36)]"}`}>{card.label}</div>
-      <p className="text-[13.5px] text-white/42 leading-[1.6]">{card.desc}</p>
+      <div className={`text-[10px] font-extrabold tracking-[1px] uppercase mb-[4px] ${teal ? "text-[#099488]" : "text-[rgb(251,191,36)]"}`}>{card.label}</div>
+      <p className="text-[12px] text-white leading-[1.5]">{card.desc}</p>
     </div>
   );
 }
 
 function StepRow({ step, isLast, index }: { step: Step; isLast: boolean; index: number }) {
   return (
-    <div className="flex gap-[22px] step-row" style={{ animationDelay: `${index * 90}ms` }}>
-      <div className={`flex-shrink-0 relative ${!isLast ? "pb-10" : ""}`}>
+    <div className="flex gap-[13px]" style={{ animationDelay: `${index * 55}ms` }}>
+      {/* bubble + connector */}
+      <div className={`flex-shrink-0 relative ${!isLast ? "pb-5" : ""}`}>
         {!isLast && (
-          <div className="absolute left-[19px] top-[42px] bottom-0 w-[2px] bg-white/6">
-            <div className="connector-fill h-0 w-full bg-gradient-to-b from-[#099488]/40 to-transparent rounded-full" style={{ animationDelay: `${index * 90 + 200}ms` }} />
+          <div className="absolute left-[12px] top-[28px] bottom-0 w-[2px] bg-white/[0.06]">
+            <div
+              className="conn-fill h-0 w-full bg-gradient-to-b from-[#099488]/35 to-transparent rounded-full"
+              style={{ animationDelay: `${index * 55 + 150}ms` }}
+            />
           </div>
         )}
-        <div className="w-10 h-10 rounded-full border-2 border-[rgba(9,148,136,0.4)] bg-[rgba(9,148,136,0.08)] flex items-center justify-center text-[14px] font-extrabold text-[#099488] relative z-10 step-num transition-all duration-300 hover:border-[#099488] hover:bg-[rgba(9,148,136,0.25)] hover:shadow-[0_0_16px_rgba(9,148,136,0.4)] hover:scale-110 cursor-default">
+        <div className="w-[26px] h-[26px] rounded-full border-2 border-[rgba(9,148,136,0.4)] bg-[rgba(9,148,136,0.08)] flex items-center justify-center text-[11px] font-extrabold text-[#099488] relative z-10">
           {step.num}
         </div>
       </div>
 
-      <div className={`flex-1 min-w-0 ${!isLast ? "pb-10" : ""} pt-[7px]`}> {/* min-w-0 prevents flex child from overflowing */}
-        <div className="text-[17px] font-bold text-white mb-2 leading-[1.3]">{step.title}</div>
-        <p className="text-[15px] text-white/50 leading-[1.75]">{step.desc}</p>
+      {/* content */}
+      <div className={`flex-1 min-w-0 ${!isLast ? "pb-5" : ""} pt-[2px]`}>
+        <div className="text-[13px] sm:text-[14px] font-bold text-white mb-[3px] leading-[1.3]">{step.title}</div>
+        <p className="text-[12px] sm:text-[13px] text-white/80 leading-[1.6]">{step.desc}</p>
 
         {step.tags && (
-          <div className="flex flex-wrap gap-[7px] mt-3">
-            {step.tags.map((t, ti) => (
-              <span key={t.text} style={{ animationDelay: `${index * 90 + ti * 50}ms` }} className="tag-pop">
-                <Tag {...t} />
-              </span>
-            ))}
+          <div className="flex flex-wrap gap-[5px] mt-[7px]">
+            {step.tags.map((t) => <Tag key={t.text} {...t} />)}
           </div>
         )}
-
         {step.pills && (
-          <div className="flex flex-wrap gap-2 mt-[14px]">
+          <div className="flex flex-wrap gap-[5px] mt-[7px]">
             {step.pills.map((p, pi) => <Pill key={p.text} {...p} index={pi} />)}
           </div>
         )}
-
-        {/* Fork cards: single column on mobile, two on md+ */}
         {step.fork && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px] mt-4">
-            {step.fork.map((f, fi) => <ForkCardEl key={f.label} card={f} index={fi} />)}
+          <div className="flex flex-col gap-[6px] mt-[9px]">
+            {step.fork.map((f, fi) => <ForkCard key={f.label} card={f} index={fi} />)}
           </div>
         )}
-
         {step.subSections && step.subSections.map((sub, si) => (
-          <div key={sub.label} className={si > 0 ? "mt-4" : "mt-[18px]"}>
-            <div className="text-[11px] font-extrabold tracking-[1.5px] uppercase text-[#099488] mb-[7px]">{sub.label}</div>
+          <div key={sub.label} className={si > 0 ? "mt-[9px]" : "mt-[10px]"}>
+            <div className="text-[10px] font-extrabold tracking-[1.4px] uppercase text-[#099488] mb-[4px]">{sub.label}</div>
             {sub.label.startsWith("9b") && step.langGrid ? (
-              /* Lang grid: single col on mobile, two on md+ */
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px] mt-[10px]">
+              <div className="flex flex-col gap-[6px] mt-[5px]">
                 {step.langGrid.map((lc) => (
-                  <div key={lc.label} className="bg-white/4 border border-white/[0.09] rounded-xl p-[14px_16px] hover:bg-white/8 hover:border-white/20 transition-all duration-300">
-                    <div className="text-[11px] font-extrabold tracking-[1px] uppercase text-[#099488] mb-[5px]">{lc.label}</div>
-                    <p className="text-[13.5px] text-white/42 leading-[1.55]">{lc.desc}</p>
+                  <div key={lc.label} className="bg-white/[0.04] border border-white/[0.08] rounded-[9px] p-[9px_11px]">
+                    <div className="text-[10px] font-extrabold tracking-[1px] uppercase text-[#099488] mb-[3px]">{lc.label}</div>
+                    <p className="text-[12px] text-white/60 leading-[1.45]">{lc.desc}</p>
                   </div>
                 ))}
               </div>
             ) : sub.content}
           </div>
         ))}
-
         {step.dests && (
-          <div className="flex flex-wrap gap-2 mt-[14px]">
+          <div className="flex flex-wrap gap-[5px] mt-[7px]">
             {step.dests.map((d, di) => (
-              <span key={d} className="dest-pop flex items-center gap-[6px] text-[13px] font-semibold text-white/62 bg-white/5 border border-white/[0.09] px-[14px] py-[6px] rounded-full hover:bg-white/10 hover:border-white/20 hover:text-white/80 transition-all duration-200 hover:scale-105" style={{ animationDelay: `${di * 40}ms` }}>
+              <span
+                key={d}
+                className="text-[11px] font-semibold text-white/80 bg-white/5 border border-white/[0.08] px-[9px] py-[3px] rounded-full"
+                style={{ animationDelay: `${di * 22}ms` }}
+              >
                 {d}
               </span>
             ))}
@@ -205,68 +205,130 @@ function StepRow({ step, isLast, index }: { step: Step; isLast: boolean; index: 
   );
 }
 
+/* ─────────────────────────────────────────────
+   Main export
+───────────────────────────────────────────── */
 export default function HowItWorksSection() {
   const [active, setActive]             = useState(0);
-  const [direction, setDirection]       = useState<"fwd" | "bwd">("fwd");
   const [statsVisible, setStatsVisible] = useState(false);
+  const [navH, setNavH]                 = useState(0);
+  const [stickyH, setStickyH]           = useState(0);
 
-  const statsRef     = useRef<HTMLDivElement>(null);
-  const sectionRef   = useRef<HTMLElement>(null);
-  const phaseRefsMap = useRef<(HTMLDivElement | null)[]>([]);
+  const statsRef  = useRef<HTMLDivElement>(null);
+  const tabsRef   = useRef<HTMLDivElement>(null);
+  const stickyBar = useRef<HTMLDivElement>(null);
+  const blockRefs = useRef<(HTMLDivElement | null)[]>(Array(PHASES.length).fill(null));
 
-  const progressPct = (((active + 1) / 6) * 100).toFixed(2);
-  const phase = PHASES[active];
+  const progressPct = (((active + 1) / PHASES.length) * 100).toFixed(1);
 
+  /* ── FIX 1: Measure nav height with ResizeObserver so iOS re-measures correctly ── */
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setStatsVisible(true); }, { threshold: 0.4 });
+    const nav = document.querySelector("nav, header, [data-navbar]") as HTMLElement | null;
+    if (!nav) return;
+
+    const measure = () => setNavH(nav.offsetHeight);
+    measure();
+
+    // ResizeObserver ensures we re-measure if nav changes size on iOS
+    const ro = new ResizeObserver(measure);
+    ro.observe(nav);
+    return () => ro.disconnect();
+  }, []);
+
+  /* ── FIX 2: Measure sticky bar height with ResizeObserver too ── */
+  useEffect(() => {
+    if (!stickyBar.current) return;
+    const el = stickyBar.current;
+
+    const measure = () => setStickyH(el.offsetHeight);
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  /* stats counter trigger */
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setStatsVisible(true); }, { threshold: 0.2 });
     if (statsRef.current) obs.observe(statsRef.current);
     return () => obs.disconnect();
   }, []);
 
+  /* scroll → active chip */
   useEffect(() => {
-    const obs = new IntersectionObserver((entries) => {
-      const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-      const idx = phaseRefsMap.current.indexOf(visible.target as HTMLDivElement);
-      if (idx === -1 || idx === active) return;
-      setDirection(idx > active ? "fwd" : "bwd");
-      setActive(idx);
-    }, { threshold: 0.3, rootMargin: "0px 0px -20% 0px" });
-    phaseRefsMap.current.forEach((el) => { if (el) obs.observe(el); });
-    return () => obs.disconnect();
+    const onScroll = () => {
+      const topEdge = navH + stickyH + 16;
+      let best = 0;
+      let bestDist = Infinity;
+
+      blockRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top - topEdge);
+        if (rect.top <= topEdge + 60 && dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+
+      setActive(best);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [navH, stickyH]);
+
+  /* keep active chip visible */
+  useEffect(() => {
+    const strip = tabsRef.current;
+    if (!strip) return;
+    const btn = strip.children[active] as HTMLElement;
+    if (btn) btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
   }, [active]);
 
-  const switchTab = (i: number) => {
-    setDirection(i >= active ? "fwd" : "bwd");
-    setActive(i);
-    phaseRefsMap.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  /* chip tap → scroll to phase */
+  const jumpToPhase = (i: number) => {
+    const el = blockRefs.current[i];
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - navH - stickyH - 4;
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="bg-[#0D243F] relative">
+    /*
+      ── FIX 3: NO overflow-hidden on section or any ancestor ──
+      Use overflowX: 'clip' if you need to clip horizontal overflow.
+      overflow: hidden creates a scroll container and BREAKS position: sticky on iOS Safari.
+    */
+    <section
+      id="how-it-works"
+      className="bg-[#0D243F] text-white"
+      style={{ overflowX: "clip" }}
+    >
 
-      {/* Header + Stats — scrolls away before sticky panel takes over */}
-      <div className="py-8 sm:py-24 px-4 sm:px-8 pb-16 sm:pb-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10 sm:mb-14">
-            <span className="text-[11px] font-bold tracking-[2px] uppercase text-[#099488] block mb-3 header-fade">The Journey</span>
-            <h2 className="text-white text-[clamp(26px,4vw,42px)] font-bold leading-[1.12] mb-4 header-rise">
+      {/* Header + Stats */}
+      <div className="px-4 sm:px-8 pt-10 pb-5">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-5">
+            <span className="text-[10px] font-bold tracking-[2px] uppercase text-[#099488] block mb-2 hdr-fade">The Journey</span>
+            <h2 className="text-white text-[clamp(20px,4vw,36px)] font-bold leading-[1.15] mb-2 hdr-rise">
               From application to earning —<br />a complete step-by-step guide
             </h2>
-            <p className="text-white/50 text-[16px] sm:text-[17px] leading-[1.75] max-w-[460px] mx-auto header-rise" style={{ animationDelay: "120ms" }}>
+            <p className="text-white/60 text-[13px] sm:text-[14px] leading-[1.65] max-w-[370px] mx-auto hdr-rise" style={{ animationDelay: "90ms" }}>
               A guided process across 6 phases. You focus on patients; we handle the rest.
             </p>
           </div>
 
-          {/*
-            STATS GRID FIX:
-            - Mobile  (<sm): 3 cols top row, 2 cols bottom row via CSS grid areas
-            - Desktop (sm+): 5 equal cols in one row
-            Using CSS grid with auto-fit so it never forces 5 cramped cols on mobile.
-          */}
-          <div ref={statsRef} className="stats-grid border border-white/[0.07] rounded-[14px] overflow-hidden bg-white/[0.03]">
+          {/* Stats strip */}
+          <div
+            ref={statsRef}
+            className="border border-white/[0.07] rounded-[10px] overflow-hidden bg-white/[0.03]"
+            style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)" }}
+          >
             {STATS.map((s, i) => (
-              <div key={s.label} className="stat-border-cell">
+              <div key={s.label} style={{ borderRight: i < 4 ? "1px solid rgba(255,255,255,0.07)" : "none" }}>
                 <StatCell {...s} animate={statsVisible} />
               </div>
             ))}
@@ -275,145 +337,122 @@ export default function HowItWorksSection() {
       </div>
 
       {/*
-        STICKY PANEL FIX:
-        - top-0 instead of top-[64px] — safer cross-device; adjust if you have a fixed nav
-        - px reduced on mobile
-        - maxHeight uses dvh (dynamic viewport height) with fallback for better mobile support
-      */}
-      <div className="sticky top-0 z-10 bg-[#0D243F] px-4 sm:px-8 pt-4 sm:pt-6 pb-8 sm:pb-12">
-        <div className="max-w-6xl mx-auto">
+        ── STICKY BAR ──
 
-          {/* Tab pills — horizontal scroll on mobile, no wrapping */}
-          <div className="flex gap-[6px] mb-4 sm:mb-5 overflow-x-auto pb-2 scrollbar-hide p-2">
+        FIX 4: Key iOS Safari sticky fixes applied here:
+        1. Added `position: '-webkit-sticky'` via inline style for iOS Safari fallback
+        2. Removed `backdrop-blur-sm` — blur filters break sticky positioning on iOS Safari
+           by creating a new compositing layer that interferes with the sticky stacking context
+        3. Using solid `backgroundColor: '#0D243F'` instead of Tailwind's bg-opacity class
+           (`bg-[#0D243F]/95`) — semi-transparent backgrounds can also trigger compositing bugs
+        4. `top` is set only via inline style (not className) to ensure it applies correctly
+      */}
+      <div
+        ref={stickyBar}
+        data-sticky
+        className="z-20 border-b border-white/[0.06] px-4 sm:px-8 py-[9px]"
+        style={{
+          position: "-webkit-sticky" as React.CSSProperties["position"],
+          // Fallback for TypeScript — the cast above handles -webkit-sticky,
+          // but we also need the standard sticky. We achieve this via the CSS class below.
+          top: `${navH}px`,
+          backgroundColor: "#0D243F", // solid — no opacity, no blur, no compositing layer
+          // DO NOT use backdrop-filter here — it breaks iOS sticky
+        }}
+      >
+        {/* FIX 5: Inline style override ensures `sticky` is always set correctly.
+            The className="sticky" from Tailwind is sometimes purged or overridden.
+            We set it via a <style> tag below AND via JS as a safety net. */}
+        <div className="max-w-5xl mx-auto">
+          {/* Chips */}
+          <div ref={tabsRef} className="flex gap-[5px] overflow-x-auto scrollbar-hide pb-[2px] mb-[7px]">
             {PHASES.map((ph, i) => (
               <button
                 key={ph.tab}
-                onClick={() => switchTab(i)}
-                className={`text-[11px] sm:text-[12px] font-bold px-[14px] sm:px-[18px] py-[6px] sm:py-[7px] rounded-full border cursor-pointer transition-all duration-300 whitespace-nowrap flex-shrink-0 ${active === i ? "bg-[#099488] border-[#099488] text-white shadow-[0_0_20px_rgba(9,148,136,0.45)] scale-[1.05]" : "bg-white/[0.06] border-white/10 text-white/45 hover:bg-white/[0.12] hover:text-white/80 hover:scale-[1.03] hover:border-white/25"}`}
+                onClick={() => jumpToPhase(i)}
+                className={`text-[10px] sm:text-[11px] font-bold px-[11px] py-[4px] rounded-full border cursor-pointer transition-all duration-200 whitespace-nowrap flex-shrink-0
+                  ${active === i
+                    ? "bg-[#099488] border-[#099488] text-white shadow-[0_0_10px_rgba(9,148,136,0.35)]"
+                    : "bg-white/[0.05] border-white/[0.09] text-white/70 hover:bg-white/[0.10] hover:text-white/60"
+                  }`}
               >
                 {ph.tab}
               </button>
             ))}
           </div>
 
-          {/* Progress bar */}
-          <div className="flex items-center gap-3 w-full mb-6 sm:mb-10">
-            <div className="flex-1 h-[3px] bg-white/[0.08] rounded-full overflow-hidden">
-              <div className="h-full bg-[#099488] rounded-full transition-[width] duration-[600ms] ease-in-out relative overflow-hidden" style={{ width: `${progressPct}%` }}>
-                <div className="absolute inset-0 progress-shimmer" />
+          {/* Progress */}
+          <div className="flex items-center gap-2">
+            <div className="flex-1 h-[2px] bg-white/[0.07] rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#099488] rounded-full transition-[width] duration-400 ease-out relative overflow-hidden"
+                style={{ width: `${progressPct}%` }}
+              >
+                <div className="absolute inset-0 shimmer" />
               </div>
             </div>
-            <span className="text-[12px] font-semibold text-white/30 whitespace-nowrap tabular-nums">Phase {active + 1} of 6</span>
+            <span className="text-[10px] font-semibold text-white/40 tabular-nums shrink-0">{active + 1}/{PHASES.length}</span>
           </div>
-
-          {/*
-            PHASE PANEL FIX:
-            - Use 100dvh (dynamic viewport height) with vh fallback — fixes iOS Safari address bar issue
-            - Subtract sticky header height (~160px mobile, ~200px desktop)
-          */}
-          <div
-            className="overflow-y-auto scrollbar-hide"
-            style={{ maxHeight: "calc(var(--vh, 100vh) - 200px)" }}
-          >
-            <div key={active} className={`phase-panel ${direction === "fwd" ? "slide-fwd" : "slide-bwd"}`}>
-              <div className="flex items-center gap-[14px] mb-8 sm:mb-9">
-                <div>
-                  <div className="text-[11px] font-bold tracking-[1.5px] uppercase text-white/28 mb-[3px]">{phase.phaseLabel}</div>
-                  <div className="text-[18px] sm:text-[20px] font-bold text-white phase-title">{phase.phaseName}</div>
-                </div>
-              </div>
-              <div className="flex flex-col text-white">
-                {phase.steps.map((step, si) => (
-                  <StepRow key={step.num} step={step} isLast={si === phase.steps.length - 1} index={si} />
-                ))}
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
-      {/* Invisible scroll sentinels */}
-      <div className="pointer-events-none" aria-hidden="true">
-        {PHASES.map((_, i) => (
-          <div key={i} ref={(el) => { phaseRefsMap.current[i] = el; }} style={{ height: "100vh" }} />
-        ))}
-      </div>
+      {/* Phase content blocks */}
+      {PHASES.map((ph, i) => (
+        <div
+          key={i}
+          ref={(el) => { blockRefs.current[i] = el; }}
+          data-phase={i}
+          className="px-4 sm:px-8 pt-5 pb-6"
+          style={{ borderTop: i > 0 ? "1px solid rgba(236, 229, 229, 0.05)" : "none" }}
+        >
+          <div className="max-w-5xl mx-auto">
+            {/* Phase label row */}
+            <div className="flex items-baseline gap-2 mb-4">
+              <span className="text-[10px] font-bold tracking-[1.4px] uppercase text-[#099488]/60">{ph.phaseLabel}</span>
+              <span className="text-[14px] sm:text-[16px] font-bold text-white">{ph.phaseName}</span>
+            </div>
+            {/* Steps */}
+            <div className="flex flex-col">
+              {ph.steps.map((step, si) => (
+                <StepRow key={step.num} step={step} isLast={si === ph.steps.length - 1} index={si} />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
 
       <style>{`
-        /* ── Stats grid: 3+2 on mobile, 5-col on sm+ ── */
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-        }
-        /* last 2 cells span to center when only 2 remain in final row */
-        .stats-grid .stat-border-cell:nth-child(4) {
-          border-left: 1px solid rgba(254,254,254,0.07);
-          grid-column: 1 / 2;
-        }
-        .stats-grid .stat-border-cell:nth-child(5) {
-          grid-column: 2 / 3;
-        }
-        @media (min-width: 640px) {
-          .stats-grid {
-            grid-template-columns: repeat(5, 1fr);
-          }
-          .stats-grid .stat-border-cell:nth-child(4),
-          .stats-grid .stat-border-cell:nth-child(5) {
-            grid-column: auto;
-            border-left: none;
-          }
-        }
-        .stat-border-cell + .stat-border-cell {
-          border-left: 1px solid rgba(254,254,254,0.07);
-        }
-        /* Fix: reset nth-child overrides that conflict on desktop */
-        @media (min-width: 640px) {
-          .stats-grid .stat-border-cell:nth-child(4) { border-left: 1px solid rgba(254,254,254,0.07); }
-          .stats-grid .stat-border-cell:nth-child(5) { border-left: 1px solid rgba(254,254,254,0.07); }
+        /*
+          FIX 6: Explicit sticky declaration with -webkit-sticky prefix.
+          Tailwind's 'sticky' class compiles to just 'position: sticky'.
+          iOS Safari (especially older versions) requires -webkit-sticky.
+          We target the data-sticky attribute to be precise.
+        */
+        [data-sticky] {
+          position: -webkit-sticky !important;
+          position: sticky !important;
         }
 
-        /* ── iOS dynamic viewport height fix ── */
-        @supports (height: 100dvh) {
-          .overflow-y-auto[style*="--vh"] {
-            max-height: calc(100dvh - 200px);
-          }
-        }
+        /*
+          FIX 7: Ensure NO ancestor of the sticky bar has overflow: hidden or auto.
+          The section uses overflowX: clip (set via inline style above) which is safe —
+          unlike overflow: hidden, 'clip' does NOT create a scroll container,
+          so sticky children still work correctly on iOS Safari.
+        */
 
-        /* ── Animations (unchanged) ── */
-        .header-fade { animation: headerFade 0.6s ease both; }
-        .header-rise { animation: headerRise 0.7s ease both; }
-        @keyframes headerFade { from { opacity:0; letter-spacing:4px; } to { opacity:1; letter-spacing:2px; } }
-        @keyframes headerRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-        .stat-cell { animation: statPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes statPop { from { opacity:0; transform:scale(0.8) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
-        .phase-panel { animation-duration:0.35s; animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94); animation-fill-mode:both; }
-        .slide-fwd { animation-name: slideFwd; }
-        .slide-bwd { animation-name: slideBwd; }
-        @keyframes slideFwd { from { opacity:0; transform:translateX(32px) scale(0.98); } to { opacity:1; transform:translateX(0) scale(1); } }
-        @keyframes slideBwd { from { opacity:0; transform:translateX(-32px) scale(0.98); } to { opacity:1; transform:translateX(0) scale(1); } }
-        .phase-title { position:relative; display:inline-block; animation:fadeIn 0.4s ease both; animation-delay:80ms; }
-        .phase-title::after { content:''; position:absolute; bottom:-3px; left:0; height:2px; width:0; background:#099488; border-radius:2px; animation:underlineDraw 0.5s ease forwards; animation-delay:200ms; }
-        @keyframes underlineDraw { to { width:100%; } }
-        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-        .step-row { animation:stepSlide 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-        @keyframes stepSlide { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:translateX(0); } }
-        .step-num { animation:numPulse 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes numPulse { 0% { transform:scale(0.5); opacity:0; } 70% { transform:scale(1.15); } 100% { transform:scale(1); opacity:1; } }
-        .connector-fill { animation:connectorGrow 0.6s ease forwards; animation-delay:400ms; }
-        @keyframes connectorGrow { from { height:0; } to { height:100%; } }
-        .tag-pop { animation:tagPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes tagPop { from { opacity:0; transform:scale(0.7) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
-        .pill-pop { animation:pillPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes pillPop { from { opacity:0; transform:scale(0.75); } to { opacity:1; transform:scale(1); } }
-        .fork-slide { animation:forkSlide 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-        @keyframes forkSlide { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-        .dest-pop { animation:destPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
-        @keyframes destPop { from { opacity:0; transform:scale(0.8) translateY(8px); } to { opacity:1; transform:scale(1) translateY(0); } }
-        .progress-shimmer { background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%); animation:shimmer 2s ease infinite; background-size:200% 100%; }
-        @keyframes shimmer { from { background-position:-200% 0; } to { background-position:200% 0; } }
-        .scrollbar-hide::-webkit-scrollbar { display:none; }
-        .scrollbar-hide { -ms-overflow-style:none; scrollbar-width:none; }
+        .hdr-fade { animation: hFade .45s ease both }
+        .hdr-rise { animation: hRise .5s ease both }
+        @keyframes hFade { from { opacity:0;letter-spacing:5px } to { opacity:1;letter-spacing:2px } }
+        @keyframes hRise { from { opacity:0;transform:translateY(10px) } to { opacity:1;transform:translateY(0) } }
+
+        .conn-fill { animation: cGrow .4s ease forwards; animation-delay:280ms }
+        @keyframes cGrow { from { height:0 } to { height:100% } }
+
+        .shimmer { background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.18) 50%,transparent 100%);animation:sh 2s ease infinite;background-size:200% 100% }
+        @keyframes sh { from{background-position:-200% 0} to{background-position:200% 0} }
+
+        .scrollbar-hide::-webkit-scrollbar { display:none }
+        .scrollbar-hide { -ms-overflow-style:none;scrollbar-width:none }
       `}</style>
     </section>
   );
