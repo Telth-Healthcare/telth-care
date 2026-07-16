@@ -7,6 +7,15 @@ import {
   Briefcase,
   GraduationCap,
   Target,
+  DollarSign,
+  TrendingUp,
+  Users,
+  Award,
+  Calendar,
+  Stethoscope,
+  Pill,
+  Activity,
+  IndianRupee,
 } from "lucide-react";
 
 interface JobLevel {
@@ -140,9 +149,9 @@ const careerPath = [
 
 export default function Career() {
   const [expandedJob, setExpandedJob] = useState<string | null>("assistant-cm");
-  const [selectedLocation, setSelectedLocation] = useState<
-    "uk" | "india" | null
-  >(null);
+  const [selectedLocation, setSelectedLocation] = useState<"uk" | "india" | null>(
+    null,
+  );
   const [selectedJobForApply, setSelectedJobForApply] = useState<string | null>(
     null,
   );
@@ -361,6 +370,249 @@ export default function Career() {
         </div>
       </section>
 
+      {/* Compensation Structure */}
+      <section className="py-12 md:py-16 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-emerald-100 px-4 py-1 text-sm font-medium text-emerald-700">
+              <DollarSign className="w-4 h-4 mr-1" />
+              Compensation
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">
+              Compensation Structure
+            </h2>
+            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">
+              Competitive compensation package with performance-based incentives
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Compensation Components */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="bg-emerald-600 px-6 py-4">
+                <h3 className="text-white font-semibold text-lg">Compensation Breakdown</h3>
+              </div>
+              <div className="p-6 space-y-4">
+                {[
+                  { label: "Basic / Trainee Stipend", amount: "₹15,000 – ₹25,000", icon: Award },
+                  { label: "Collaborative Care Incentive", amount: "₹20,000 – ₹30,000", icon: Users },
+                  { label: "Care-Plan Activation", amount: "Performance linked", icon: Target },
+                  { label: "Patient Service Incentive", amount: "Per visit / plan", icon: Activity },
+                  { label: "Sales Bonus", amount: "Percentage based", icon: TrendingUp },
+                  { label: "Device/Service Utilization", amount: "Performance linked", icon: Stethoscope },
+                ].map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={idx} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
+                          <Icon className="w-4 h-4 text-emerald-600" />
+                        </div>
+                        <span className="text-sm font-medium text-slate-700">{item.label}</span>
+                      </div>
+                      <span className="text-sm font-semibold text-emerald-600">{item.amount}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Total Earning Potential */}
+            <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-lg overflow-hidden">
+              <div className="p-8 text-center h-full flex flex-col justify-center">
+                <div className="mb-4">
+                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto">
+                    <IndianRupee className="w-10 h-10 text-white" />
+                  </div>
+                </div>
+                <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
+                  Total Earning Potential
+                </p>
+                <h3 className="text-5xl font-bold text-white mt-2">
+                  ₹65,000+
+                </h3>
+                <p className="text-white/70 text-sm mt-2">
+                  Per Month*
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-white/90 text-sm">
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+                  Performance-based incentives
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-xs text-slate-400">
+              * Actual compensation may vary based on experience, performance, and location
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Revenue Target Model */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-blue-100 px-4 py-1 text-sm font-medium text-blue-700">
+              <TrendingUp className="w-4 h-4 mr-1" />
+              Revenue Model
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">
+              Care Manager Revenue Target Model
+            </h2>
+            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">
+              Illustrative monthly gross ecosystem revenue for one productive Care Manager in Greater Delhi
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
+              {/* Revenue Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-slate-200">
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Revenue Stream</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Details</th>
+                      <th className="px-6 py-4 text-right text-sm font-semibold text-slate-700">Amount (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {[
+                      { 
+                        label: "Basic / Essential Subscribers", 
+                        details: "25 subscribers × ₹3,999 avg", 
+                        amount: "99,975",
+                        icon: Users,
+                        highlight: false
+                      },
+                      { 
+                        label: "Premium Subscribers", 
+                        details: "10 subscribers × ₹7,999 avg", 
+                        amount: "79,990",
+                        icon: Award,
+                        highlight: false
+                      },
+                      { 
+                        label: "One-Time Visits", 
+                        details: "40 visits × ₹699 avg", 
+                        amount: "27,960",
+                        icon: Calendar,
+                        highlight: false
+                      },
+                      { 
+                        label: "Diagnostics Coordination", 
+                        details: "60 tests × ₹199 margin", 
+                        amount: "11,940",
+                        icon: Stethoscope,
+                        highlight: false
+                      },
+                      { 
+                        label: "Pharmacy Coordination", 
+                        details: "80 orders × ₹99 margin", 
+                        amount: "7,920",
+                        icon: Pill,
+                        highlight: false
+                      },
+                      { 
+                        label: "Physio / Doctor Referral", 
+                        details: "Conservative estimate", 
+                        amount: "20,000 – 40,000",
+                        icon: Activity,
+                        highlight: false
+                      },
+                      { 
+                        label: "Total Monthly Gross Revenue", 
+                        details: "",
+                        amount: "₹2.47 – ₹2.68 lakh",
+                        icon: TrendingUp,
+                        highlight: true
+                      },
+                    ].map((item, idx) => {
+                      const Icon = item.icon;
+                      return (
+                        <tr 
+                          key={idx} 
+                          className={`${
+                            item.highlight 
+                              ? 'bg-emerald-50 border-t-2 border-emerald-200' 
+                              : 'hover:bg-slate-50/50 transition-colors'
+                          }`}
+                        >
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                item.highlight ? 'bg-emerald-200' : 'bg-slate-100'
+                              }`}>
+                                <Icon className={`w-4 h-4 ${
+                                  item.highlight ? 'text-emerald-700' : 'text-slate-500'
+                                }`} />
+                              </div>
+                              <span className={`text-sm font-medium ${
+                                item.highlight ? 'text-emerald-800' : 'text-slate-700'
+                              }`}>
+                                {item.label}
+                              </span>
+                            </div>
+                          </td>
+                          <td className={`px-6 py-4 text-sm ${
+                            item.highlight ? 'text-emerald-600' : 'text-slate-500'
+                          }`}>
+                            {item.details}
+                          </td>
+                          <td className={`px-6 py-4 text-right text-sm font-semibold ${
+                            item.highlight ? 'text-emerald-700 text-base' : 'text-slate-700'
+                          }`}>
+                            {item.highlight ? (
+                              <span className="text-emerald-700">{item.amount}</span>
+                            ) : (
+                              `₹${item.amount}`
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Note Box */}
+              <div className="bg-amber-50 border-t border-amber-100 p-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-amber-600 font-bold text-sm">!</span>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-amber-800">Realistic Target</h4>
+                    <p className="text-sm text-amber-700/80 mt-1">
+                      With strong RWA/NRI penetration, one CM can approach <span className="font-bold">₹3 lakh/month</span> gross ecosystem revenue. 
+                      ₹5 lakh/month is not a credible immediate base case unless the CM controls high-ticket nursing, 
+                      home ICU or major referral packages.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+              {[
+                { label: "Revenue Range", value: "₹2.47L - ₹2.68L", color: "emerald" },
+                { label: "Target Revenue", value: "₹3L+", color: "blue" },
+                { label: "Avg Subscribers", value: "35+", color: "purple" },
+                { label: "Monthly Visits", value: "40+", color: "rose" },
+              ].map((metric, idx) => (
+                <div key={idx} className={`bg-${metric.color}-50 rounded-xl p-4 text-center border border-${metric.color}-100`}>
+                  <p className={`text-xs text-${metric.color}-600 font-medium`}>{metric.label}</p>
+                  <p className={`text-lg font-bold text-${metric.color}-700 mt-1`}>{metric.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Common Skills */}
       <section className="py-12 md:py-16 bg-muted/30">
         <div className="max-w-6xl mx-auto px-6">
@@ -478,9 +730,9 @@ export default function Career() {
           <div className="mt-12 max-w-4xl mx-auto">
             <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-6 text-center">
               <p className="text-sm text-slate-600 leading-7">
-             <span className="font-semibold text-emerald-700">✦</span>
-              This hierarchy provides a structured career pathway while
-               aligning with TELTH's AI-enabled collaborative care and community
+                <span className="font-semibold text-emerald-700">✦</span>
+                This hierarchy provides a structured career pathway while
+                aligning with TELTH's AI-enabled collaborative care and community
                 healthcare delivery model.
               </p>
             </div>
