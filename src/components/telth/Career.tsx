@@ -445,7 +445,7 @@ export default function Career() {
               </div>
             </div>
 
-            {/* Total Earning Potential */}
+            {/* Care Plan Revenue Potential */}
             <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl shadow-lg overflow-hidden">
               <div className="p-8 text-center h-full flex flex-col justify-center">
                 <div className="mb-4">
@@ -453,17 +453,22 @@ export default function Career() {
                     <IndianRupee className="w-10 h-10 text-white" />
                   </div>
                 </div>
+
                 <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
-                  Salary Range
+                  Care Plans to be Serviced
                 </p>
+
                 <h3 className="mt-2 text-4xl md:text-5xl font-bold text-white">
-                  ₹65,000 – ₹2,50,000
-                  <span className="text-3xl align-top">+</span>
+                  250<span className="text-2xl">/Month</span>
                 </h3>
-                <p className="text-white/70 text-sm mt-2">Per Month*</p>
+
+                <p className="text-white/70 text-sm mt-2">
+                  Revenue Target: ₹5,00,000 / Month
+                </p>
+
                 <div className="mt-6 inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-white/90 text-sm">
                   <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                  Performance-based incentives
+                  Minimum Guaranteed Income: ₹65,000 / Month
                 </div>
               </div>
             </div>
