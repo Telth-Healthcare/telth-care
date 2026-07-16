@@ -1,6 +1,13 @@
 // pages/Career.tsx
 import { useState } from "react";
-import { ChevronDown, ChevronUp, MapPin, Briefcase, GraduationCap, Target } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  MapPin,
+  Briefcase,
+  GraduationCap,
+  Target,
+} from "lucide-react";
 
 interface JobLevel {
   id: string;
@@ -17,7 +24,8 @@ const jobLevels: JobLevel[] = [
     id: "assistant-cm",
     title: "Assistant Care Manager (Junior)",
     experience: "Fresher to 2 years",
-    purpose: "Provide supervised patient support during home visits and community care programs while developing clinical and operational skills.",
+    purpose:
+      "Provide supervised patient support during home visits and community care programs while developing clinical and operational skills.",
     level: "junior",
     responsibilities: [
       "Assist Care Managers during home visits",
@@ -27,18 +35,19 @@ const jobLevels: JobLevel[] = [
       "Update the TELTH mobile application",
       "Educate patients on basic health practices",
       "Coordinate appointments and follow-ups",
-      "Escalate abnormal findings immediately"
+      "Escalate abnormal findings immediately",
     ],
     qualifications: [
       "ANM, GNM, DMLT, EMT, Healthcare Assistant, or equivalent",
-      "Basic computer and smartphone skills"
-    ]
+      "Basic computer and smartphone skills",
+    ],
   },
   {
     id: "associate-cm",
     title: "Associate Care Manager (Mid-Level)",
     experience: "2–5 years",
-    purpose: "Deliver protocol-based home healthcare services while coordinating with supervising physicians and specialists.",
+    purpose:
+      "Deliver protocol-based home healthcare services while coordinating with supervising physicians and specialists.",
     level: "mid",
     responsibilities: [
       "Perform comprehensive home health assessments",
@@ -49,17 +58,18 @@ const jobLevels: JobLevel[] = [
       "Train junior staff",
       "Maintain clinical documentation",
       "Support emergency response and referrals",
-      "Promote preventive healthcare services and care plans"
+      "Promote preventive healthcare services and care plans",
     ],
     qualifications: [
-      "GNM, B.Sc. Nursing, Physiotherapy, Physician Assistant, Allied Health, or equivalent"
-    ]
+      "GNM, B.Sc. Nursing, Physiotherapy, Physician Assistant, Allied Health, or equivalent",
+    ],
   },
   {
     id: "care-manager",
     title: "Care Manager (Collaborative Care)",
     experience: "5–8 years",
-    purpose: "Serve as the primary clinical coordinator, working collaboratively with physicians to deliver integrated, technology-enabled patient care.",
+    purpose:
+      "Serve as the primary clinical coordinator, working collaboratively with physicians to deliver integrated, technology-enabled patient care.",
     level: "senior",
     responsibilities: [
       "Manage complex patient cases",
@@ -71,17 +81,18 @@ const jobLevels: JobLevel[] = [
       "Coordinate diagnostics and medication adherence",
       "Ensure regulatory compliance",
       "Drive patient satisfaction and quality improvement",
-      "Participate in physician-led clinical reviews"
+      "Participate in physician-led clinical reviews",
     ],
     qualifications: [
-      "Registered Nurse, Physiotherapist, Physician Assistant, Pharmacist, Allied Health Professional, or equivalent"
-    ]
+      "Registered Nurse, Physiotherapist, Physician Assistant, Pharmacist, Allied Health Professional, or equivalent",
+    ],
   },
   {
     id: "senior-cm",
     title: "Senior Care Manager (Community Care)",
     experience: "8+ years",
-    purpose: "Lead community-based healthcare operations, preventive health programs, and population health initiatives across the TELTH Network.",
+    purpose:
+      "Lead community-based healthcare operations, preventive health programs, and population health initiatives across the TELTH Network.",
     level: "lead",
     responsibilities: [
       "Lead community care teams",
@@ -93,12 +104,12 @@ const jobLevels: JobLevel[] = [
       "Monitor clinical quality and operational KPIs",
       "Mentor team members",
       "Prepare management reports",
-      "Support franchise and community healthcare expansion"
+      "Support franchise and community healthcare expansion",
     ],
     qualifications: [
-      "Nursing, Public Health, Physiotherapy, Physician Assistant, Healthcare Administration, or equivalent with leadership experience"
-    ]
-  }
+      "Nursing, Public Health, Physiotherapy, Physician Assistant, Healthcare Administration, or equivalent with leadership experience",
+    ],
+  },
 ];
 
 const commonSkills = [
@@ -113,7 +124,7 @@ const commonSkills = [
   "Digital health literacy",
   "Basic English communication",
   "Ethical and professional conduct",
-  "Teamwork and leadership (as applicable)"
+  "Teamwork and leadership (as applicable)",
 ];
 
 const careerPath = [
@@ -124,13 +135,17 @@ const careerPath = [
   "Area Care Manager",
   "Regional Care Manager",
   "State Clinical Operations Manager",
-  "National Community Care Director"
+  "National Community Care Director",
 ];
 
 export default function Career() {
   const [expandedJob, setExpandedJob] = useState<string | null>("assistant-cm");
-  const [selectedLocation, setSelectedLocation] = useState<"uk" | "india" | null>(null);
-  const [selectedJobForApply, setSelectedJobForApply] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<
+    "uk" | "india" | null
+  >(null);
+  const [selectedJobForApply, setSelectedJobForApply] = useState<string | null>(
+    null,
+  );
 
   const toggleJob = (jobId: string) => {
     setExpandedJob(expandedJob === jobId ? null : jobId);
@@ -139,7 +154,7 @@ export default function Career() {
   const handleApply = (jobId: string, location: "uk" | "india") => {
     setSelectedJobForApply(jobId);
     setSelectedLocation(location);
-    
+
     // Navigate based on location
     if (location === "uk") {
       window.open("https://www.medpassedu.org/", "_blank");
@@ -149,22 +164,32 @@ export default function Career() {
   };
 
   const getLevelBadgeColor = (level: string) => {
-    switch(level) {
-      case "junior": return "bg-blue-100 text-blue-800";
-      case "mid": return "bg-green-100 text-green-800";
-      case "senior": return "bg-purple-100 text-purple-800";
-      case "lead": return "bg-amber-100 text-amber-800";
-      default: return "bg-gray-100 text-gray-800";
+    switch (level) {
+      case "junior":
+        return "bg-blue-100 text-blue-800";
+      case "mid":
+        return "bg-green-100 text-green-800";
+      case "senior":
+        return "bg-purple-100 text-purple-800";
+      case "lead":
+        return "bg-amber-100 text-amber-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getLevelLabel = (level: string) => {
-    switch(level) {
-      case "junior": return "Entry Level";
-      case "mid": return "Mid Level";
-      case "senior": return "Senior Level";
-      case "lead": return "Leadership";
-      default: return level;
+    switch (level) {
+      case "junior":
+        return "Entry Level";
+      case "mid":
+        return "Mid Level";
+      case "senior":
+        return "Senior Level";
+      case "lead":
+        return "Leadership";
+      default:
+        return level;
     }
   };
 
@@ -180,8 +205,8 @@ export default function Career() {
               <span className="text-primary">Community Healthcare</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Join TELTH Network's AI-enabled collaborative care model and make a difference 
-              in community healthcare delivery across the globe.
+              Join TELTH Network's AI-enabled collaborative care model and make
+              a difference in community healthcare delivery across the globe.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border">
@@ -205,15 +230,21 @@ export default function Career() {
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">Current Openings</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              Current Openings
+            </h2>
             <p className="text-muted-foreground">
-              Explore opportunities across all experience levels in our community care network
+              Explore opportunities across all experience levels in our
+              community care network
             </p>
           </div>
 
           <div className="space-y-4">
             {jobLevels.map((job) => (
-              <div key={job.id} className="border rounded-xl bg-card overflow-hidden">
+              <div
+                key={job.id}
+                className="border rounded-xl bg-card overflow-hidden"
+              >
                 <button
                   onClick={() => toggleJob(job.id)}
                   className="w-full px-6 py-4 flex items-center justify-between hover:bg-muted/30 transition-colors text-left"
@@ -221,7 +252,9 @@ export default function Career() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 flex-wrap">
                       <h3 className="text-lg font-semibold">{job.title}</h3>
-                      <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getLevelBadgeColor(job.level)}`}>
+                      <span
+                        className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getLevelBadgeColor(job.level)}`}
+                      >
                         {getLevelLabel(job.level)}
                       </span>
                       <span className="text-xs px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
@@ -250,15 +283,22 @@ export default function Career() {
                           <Target className="w-4 h-4 text-primary" />
                           Role Purpose
                         </h4>
-                        <p className="text-muted-foreground text-sm">{job.purpose}</p>
+                        <p className="text-muted-foreground text-sm">
+                          {job.purpose}
+                        </p>
                       </div>
 
                       {/* Responsibilities */}
                       <div>
-                        <h4 className="font-semibold text-sm mb-2">Key Responsibilities</h4>
+                        <h4 className="font-semibold text-sm mb-2">
+                          Key Responsibilities
+                        </h4>
                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                           {job.responsibilities.map((resp, idx) => (
-                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <li
+                              key={idx}
+                              className="text-sm text-muted-foreground flex items-start gap-2"
+                            >
                               <span className="text-primary mt-0.5">•</span>
                               {resp}
                             </li>
@@ -268,7 +308,9 @@ export default function Career() {
 
                       {/* Qualifications */}
                       <div>
-                        <h4 className="font-semibold text-sm mb-2">Preferred Qualification</h4>
+                        <h4 className="font-semibold text-sm mb-2">
+                          Preferred Qualification
+                        </h4>
                         <ul className="list-disc list-inside text-sm text-muted-foreground space-y-0.5">
                           {job.qualifications.map((qual, idx) => (
                             <li key={idx}>{qual}</li>
@@ -278,7 +320,9 @@ export default function Career() {
 
                       {/* Apply Buttons */}
                       <div className="pt-4 border-t">
-                        <p className="text-sm font-medium mb-3">Apply for this position:</p>
+                        <p className="text-sm font-medium mb-3">
+                          Apply for this position:
+                        </p>
                         <div className="flex flex-wrap gap-3">
                           <button
                             onClick={() => handleApply(job.id, "uk")}
@@ -296,11 +340,16 @@ export default function Career() {
                           </button>
                         </div>
                         <p className="text-xs text-muted-foreground mt-2">
-                          {selectedJobForApply === job.id && selectedLocation && (
-                            <span>
-                              Redirecting to {selectedLocation === "uk" ? "MedPass Edu" : "TELTH Care"} application portal...
-                            </span>
-                          )}
+                          {selectedJobForApply === job.id &&
+                            selectedLocation && (
+                              <span>
+                                Redirecting to{" "}
+                                {selectedLocation === "uk"
+                                  ? "MedPass Edu"
+                                  : "TELTH Care"}{" "}
+                                application portal...
+                              </span>
+                            )}
                         </p>
                       </div>
                     </div>
@@ -319,7 +368,8 @@ export default function Career() {
             Common Skills Across All Levels
           </h2>
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-            These core competencies are essential for success in any role within the TELTH Network
+            These core competencies are essential for success in any role within
+            the TELTH Network
           </p>
           <div className="flex flex-wrap justify-center gap-2.5">
             {commonSkills.map((skill, idx) => (
@@ -335,47 +385,63 @@ export default function Career() {
       </section>
 
       {/* Career Progression */}
-      {/* <section className="py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
-            Career Progression Pathway
-          </h2>
-          <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Your journey from entry-level to leadership in community healthcare
-          </p>
-          
-          <div className="relative">
-            <div className="hidden md:block">
-              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-primary/20 -translate-y-1/2" />
-              <div className="relative flex justify-between">
-                {careerPath.map((role, idx) => (
-                  <div key={idx} className="flex flex-col items-center">
-                    <div className="w-4 h-4 rounded-full bg-primary border-4 border-background relative z-10" />
-                    <span className="text-xs font-medium mt-3 text-center max-w-[100px] leading-tight">
-                      {role}
-                    </span>
-                    {idx < careerPath.length - 1 && (
-                      <span className="text-[10px] text-muted-foreground mt-1">→</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900">
+              Career Progression Pathway
+            </h2>
 
-            <div className="md:hidden space-y-3">
-              {careerPath.map((role, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-primary flex-shrink-0" />
-                  <span className="text-sm font-medium">{role}</span>
-                  {idx < careerPath.length - 1 && (
-                    <ChevronDown className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                  )}
+            <p className="mt-4 text-slate-500 max-w-2xl mx-auto">
+              Your journey from entry-level to leadership in community
+              healthcare.
+            </p>
+          </div>
+
+          {/* Desktop Timeline */}
+          <div className="hidden lg:block relative">
+            {/* Horizontal Line */}
+            <div className="absolute top-5 left-0 w-full h-[2px] bg-emerald-200"></div>
+
+            <div className="relative grid grid-cols-8 gap-6">
+              {careerPath.map((role, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center text-center"
+                >
+                  {/* Circle */}
+                  <div className="w-5 h-5 rounded-full bg-emerald-600 border-[5px] border-white shadow-md z-10"></div>
+
+                  {/* Card */}
+                  <div className="mt-6 bg-card rounded-xl shadow-sm border p-4 w-full min-h-[120px] flex items-center justify-center transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                    <p className="text-sm font-semibold text-slate-700 leading-6">
+                      {role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Version */}
+          <div className="lg:hidden relative">
+            <div className="absolute left-[10px] top-0 bottom-0 w-[2px] bg-"></div>
+
+            <div className="space-y-8">
+              {careerPath.map((role, index) => (
+                <div key={index} className="relative flex items-start gap-5">
+                  <div className="w-5 h-5 mt-4 rounded-full bg-emerald-600 border-4 border-white shadow z-10"></div>
+
+                  <div className="flex-1 bg-white border rounded-xl shadow-sm p-4">
+                    <p className="font-semibold text-slate-700">{role}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-primary text-primary-foreground">
@@ -384,7 +450,8 @@ export default function Career() {
             Ready to Make a Difference?
           </h2>
           <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join TELTH Network and be part of the future of community healthcare delivery
+            Join TELTH Network and be part of the future of community healthcare
+            delivery
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
