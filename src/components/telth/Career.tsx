@@ -157,9 +157,9 @@ export default function Career() {
 
     // Navigate based on location
     if (location === "uk") {
-      window.open("https://www.medpassedu.org/", "_blank");
+      window.open("https://www.medpassedu.org/application-form?role=cm", "_blank");
     } else {
-      window.open("https://app.telth.care/ccm-auth/signin", "_blank");
+      window.open("https://app.telth.care/ccm-auth/signup", "_blank");
     }
   };
 
