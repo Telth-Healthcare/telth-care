@@ -385,59 +385,104 @@ export default function Career() {
       </section>
 
       {/* Career Progression */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-8xl mx-auto px-6">
           {/* Heading */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900">
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center rounded-full bg-emerald-100 px-4 py-1 text-sm font-medium text-emerald-700">
+              Career Growth
+            </span>
+
+            <h2 className="mt-4 text-4xl font-bold text-slate-900">
               Career Progression Pathway
             </h2>
 
-            <p className="mt-4 text-slate-500 max-w-2xl mx-auto">
+            <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
               Your journey from entry-level to leadership in community
               healthcare.
             </p>
           </div>
 
-          {/* Desktop Timeline */}
-          <div className="hidden lg:block relative">
-            {/* Horizontal Line */}
-            <div className="absolute top-5 left-0 w-full h-[2px] bg-emerald-200"></div>
-
-            <div className="relative grid grid-cols-8 gap-6">
-              {careerPath.map((role, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center text-center"
-                >
-                  {/* Circle */}
-                  <div className="w-5 h-5 rounded-full bg-emerald-600 border-[5px] border-white shadow-md z-10"></div>
-
-                  {/* Card */}
-                  <div className="mt-6 bg-card rounded-xl shadow-sm border p-4 w-full min-h-[120px] flex items-center justify-center transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                    <p className="text-sm font-semibold text-slate-700 leading-6">
-                      {role}
-                    </p>
+          {/* Desktop */}
+          <div className="hidden lg:flex overflow-x-auto pb-6">
+            {careerPath.map((role, index) => (
+              <div key={index} className="flex items-center">
+                {/* Card */}
+                <div className="w-30 min-h-[100px] bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition duration-300 hover:-translate-y-2 p-6 flex flex-col items-center text-center">
+                  <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-semibold">
+                    {index + 1}
                   </div>
+                  <h3 className="text-sm font-semibold text-slate-800 leading-6">
+                    {role}
+                  </h3>
                 </div>
-              ))}
-            </div>
+
+                {/* Arrow */}
+                {index !== careerPath.length - 1 && (
+                  <div className="px-1">
+                    <svg
+                      className="w-8 h-8 text-emerald-500"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 12h14m0 0l-5-5m5 5l-5 5"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Mobile Version */}
-          <div className="lg:hidden relative">
-            <div className="absolute left-[10px] top-0 bottom-0 w-[2px] bg-"></div>
+          {/* Mobile */}
+          <div className="lg:hidden space-y-5">
+            {careerPath.map((role, index) => (
+              <div key={index}>
+                <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm flex gap-4 items-center">
+                  <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-semibold">
+                    {index + 1}
+                  </div>
 
-            <div className="space-y-8">
-              {careerPath.map((role, index) => (
-                <div key={index} className="relative flex items-start gap-5">
-                  <div className="w-5 h-5 mt-4 rounded-full bg-emerald-600 border-4 border-white shadow z-10"></div>
-
-                  <div className="flex-1 bg-white border rounded-xl shadow-sm p-4">
-                    <p className="font-semibold text-slate-700">{role}</p>
+                  <div>
+                    <h3 className="font-semibold text-slate-800">{role}</h3>
                   </div>
                 </div>
-              ))}
+
+                {index !== careerPath.length - 1 && (
+                  <div className="flex justify-center py-2">
+                    <svg
+                      className="w-6 h-6 text-emerald-500"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 5v14m0 0l-5-5m5 5l5-5"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Note */}
+          <div className="mt-12 max-w-4xl mx-auto">
+            <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-6 text-center">
+              <p className="text-sm text-slate-600 leading-7">
+             <span className="font-semibold text-emerald-700">✦</span>
+              This hierarchy provides a structured career pathway while
+               aligning with TELTH's AI-enabled collaborative care and community
+                healthcare delivery model.
+              </p>
             </div>
           </div>
         </div>
