@@ -426,7 +426,7 @@ export default function Career() {
                   </div>
                 </div>
                 <p className="text-white/80 text-sm font-medium uppercase tracking-wider">
-                  Total Earning Potential
+                  Minimum  Earning Potential
                 </p>
                 <h3 className="text-5xl font-bold text-white mt-2">
                   ₹65,000+
@@ -456,13 +456,13 @@ export default function Career() {
           <div className="text-center mb-12">
             <span className="inline-flex items-center rounded-full bg-blue-100 px-4 py-1 text-sm font-medium text-blue-700">
               <TrendingUp className="w-4 h-4 mr-1" />
-              Revenue Model
+              Maximum Earning Potential
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">
               Care Manager Revenue Target Model
             </h2>
             <p className="text-slate-500 mt-3 max-w-2xl mx-auto">
-              Illustrative monthly gross ecosystem revenue for one productive Care Manager in Greater Delhi
+              Illustrative monthly gross ecosystem revenue for one productive Care Manager
             </p>
           </div>
 
