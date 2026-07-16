@@ -40,7 +40,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center px-4 py-2 rounded-full border border-[#0D9488] text-[#0D9488] text-sm  font-medium hover:bg-[#E6F7F6] transition-colors"
-          > 
+          >
             Partner Login
           </a>
           <button
@@ -53,12 +53,10 @@ export default function Navbar() {
           </button>
 
           <button
-            onClick={() =>
-              (window.location.href = "https://app.telth.care/ccm-auth/signup")
-            }
+            onClick={() => navigate("/career")} // Use navigate instead of window.location
             className="text-[13px] font-bold text-primary-foreground bg-primary px-5 py-2 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
           >
-            Apply Now
+            Career
           </button>
         </div>
 
@@ -87,19 +85,18 @@ export default function Navbar() {
           <div className="grid grid-cols-2 gap-3 ">
             <button
               onClick={() =>
-              (window.location.href = "https://app.telth.care/ccm-auth/signin")
-            }
+                (window.location.href =
+                  "https://app.telth.care/ccm-auth/signin")
+              }
               className="text-[13px] font-semibold text-foreground border border-border px-4 py-2 rounded-lg hover:border-primary hover:text-primary transition-all bg-transparent cursor-pointer"
             >
               Login
             </button>
             <button
-              onClick={() =>
-              (window.location.href = "https://app.telth.care/ccm-auth/signup")
-            }
+              onClick={() => navigate("/career")}
               className="bg-primary text-primary-foreground font-bold text-[14px] py-2.5 rounded-lg border-none cursor-pointer"
             >
-              Apply Now
+              Career
             </button>
           </div>
         </div>
