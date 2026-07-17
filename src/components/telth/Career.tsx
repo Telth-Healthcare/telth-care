@@ -16,6 +16,11 @@ import {
   Pill,
   Activity,
   IndianRupee,
+  Clock,
+  UserRound,
+  Heart,
+  Shield,
+  Sparkles,
 } from "lucide-react";
 
 interface JobLevel {
@@ -26,6 +31,16 @@ interface JobLevel {
   responsibilities: string[];
   qualifications: string[];
   level: "junior" | "mid" | "senior" | "lead";
+}
+
+interface PhysicianRole {
+  id: string;
+  title: string;
+  experience: string;
+  type: "part-time" | "full-time";
+  workMode: "remote" | "field";
+  specialty: "preventive" | "chronic" | "primary";
+  level: "junior" | "senior" | "consultant";
 }
 
 const jobLevels: JobLevel[] = [
@@ -121,6 +136,36 @@ const jobLevels: JobLevel[] = [
   },
 ];
 
+const physicianRoles: PhysicianRole[] = [
+  {
+    id: "junior-physician",
+    title: "Collaborative Care (Junior) Physician",
+    experience: "0 – 10 Years",
+    type: "full-time",
+    workMode: "field",
+    specialty: "primary",
+    level: "junior",
+  },
+  {
+    id: "senior-physician",
+    title: "Collaborative Care (Senior) Physician",
+    experience: "> 10 Years",
+    type: "full-time",
+    workMode: "field",
+    specialty: "chronic",
+    level: "senior",
+  },
+  {
+    id: "consultant-physician",
+    title: "Collaborative Care Consultant Physician",
+    experience: "> 20 Years",
+    type: "part-time",
+    workMode: "remote",
+    specialty: "preventive",
+    level: "consultant",
+  },
+];
+
 const commonSkills = [
   "Patient-centered communication",
   "AI-enabled healthcare workflow",
@@ -149,27 +194,52 @@ const careerPath = [
 
 export default function Career() {
   const [expandedJob, setExpandedJob] = useState<string | null>("assistant-cm");
+  const [expandedPhysician, setExpandedPhysician] = useState<string | null>(
+    null
+  );
   const [selectedLocation, setSelectedLocation] = useState<
     "uk" | "india" | null
   >(null);
   const [selectedJobForApply, setSelectedJobForApply] = useState<string | null>(
-    null,
+    null
   );
+  const [selectedPhysicianApply, setSelectedPhysicianApply] = useState<{
+    roleId: string;
+    location: "uk" | "india";
+    type: "job" | "study";
+  } | null>(null);
 
   const toggleJob = (jobId: string) => {
     setExpandedJob(expandedJob === jobId ? null : jobId);
+  };
+
+  const togglePhysician = (roleId: string) => {
+    setExpandedPhysician(expandedPhysician === roleId ? null : roleId);
   };
 
   const handleApply = (jobId: string, location: "uk" | "india") => {
     setSelectedJobForApply(jobId);
     setSelectedLocation(location);
 
-    // Navigate based on location
     if (location === "uk") {
       window.open(
         "https://www.medpassedu.org/application-form?role=cm",
-        "_blank",
+        "_blank"
       );
+    } else {
+      window.open("https://app.telth.care/ccm-auth/signup", "_blank");
+    }
+  };
+
+  const handlePhysicianApply = (
+    roleId: string,
+    location: "uk" | "india",
+    type: "job" | "study"
+  ) => {
+    setSelectedPhysicianApply({ roleId, location, type });
+
+    if (location === "uk") {
+      window.open("https://www.medpassedu.org/application-form?role=cm", "_blank");
     } else {
       window.open("https://app.telth.care/ccm-auth/signup", "_blank");
     }
@@ -202,6 +272,32 @@ export default function Career() {
         return "Leadership";
       default:
         return level;
+    }
+  };
+
+  const getSpecialtyIcon = (specialty: string) => {
+    switch (specialty) {
+      case "preventive":
+        return <Shield className="w-4 h-4" />;
+      case "chronic":
+        return <Heart className="w-4 h-4" />;
+      case "primary":
+        return <Activity className="w-4 h-4" />;
+      default:
+        return <Stethoscope className="w-4 h-4" />;
+    }
+  };
+
+  const getSpecialtyLabel = (specialty: string) => {
+    switch (specialty) {
+      case "preventive":
+        return "Preventive Care";
+      case "chronic":
+        return "Chronic Care";
+      case "primary":
+        return "Primary Care";
+      default:
+        return specialty;
     }
   };
 
@@ -373,6 +469,156 @@ export default function Career() {
         </div>
       </section>
 
+      {/* Physicians Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-3">
+              <Stethoscope className="w-8 h-8 text-emerald-600" />
+              <h2 className="text-2xl md:text-3xl font-bold">
+                Doctors / Collaborative Care Physicians
+              </h2>
+            </div>
+            <p className="text-muted-foreground">
+              Join our network of collaborative care physicians and shape the
+              future of community healthcare
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {physicianRoles.map((role) => (
+              <div
+                key={role.id}
+                className="border rounded-xl bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              >
+                <button
+                  onClick={() => togglePhysician(role.id)}
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-muted/30 transition-colors text-left"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h3 className="text-lg font-semibold">{role.title}</h3>
+                      <span
+                        className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getLevelBadgeColor(role.level)}`}
+                      >
+                        {role.level.charAt(0).toUpperCase() + role.level.slice(1)}
+                      </span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
+                        {role.experience}
+                      </span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 font-medium flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {role.type === "part-time" ? "Part Time" : "Full Time"}
+                      </span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">
+                        {role.workMode === "remote" ? "Remote" : "Field Work/Hub Management"}
+                      </span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 font-medium flex items-center gap-1">
+                        {getSpecialtyIcon(role.specialty)}
+                        {getSpecialtyLabel(role.specialty)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-muted-foreground hidden sm:inline">
+                      {expandedPhysician === role.id
+                        ? "Hide options"
+                        : "View options"}
+                    </span>
+                    {expandedPhysician === role.id ? (
+                      <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                    )}
+                  </div>
+                </button>
+
+                {expandedPhysician === role.id && (
+                  <div className="px-6 pb-6 pt-2 border-t">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {/* Apply for Higher Studies */}
+                      <div className="space-y-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="w-5 h-5 text-blue-600" />
+                          <h4 className="font-semibold text-blue-900">
+                            Apply for Higher Studies
+                          </h4>
+                        </div>
+                        <p className="text-sm text-blue-700">
+                          Pursue advanced education and research opportunities
+                        </p>
+                        <div className="flex flex-wrap gap-3 mt-2">
+                          <button
+                            onClick={() =>
+                              handlePhysicianApply(role.id, "uk", "study")
+                            }
+                            className="px-5 py-2 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors"
+                          >
+                            UK — MedPass
+                          </button>
+                          <button
+                            onClick={() =>
+                              handlePhysicianApply(role.id, "india", "study")
+                            }
+                            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+                          >
+                            India — TELTH.Care
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Apply for Job */}
+                      <div className="space-y-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                        <div className="flex items-center gap-2">
+                          <Briefcase className="w-5 h-5 text-emerald-600" />
+                          <h4 className="font-semibold text-emerald-900">
+                            Apply for Job
+                          </h4>
+                        </div>
+                        <p className="text-sm text-emerald-700">
+                          Join our collaborative care network
+                        </p>
+                        <div className="flex flex-wrap gap-3 mt-2">
+                          <button
+                            onClick={() =>
+                              handlePhysicianApply(role.id, "uk", "job")
+                            }
+                            className="px-5 py-2 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors"
+                          >
+                            UK — MedPass
+                          </button>
+                          <button
+                            onClick={() =>
+                              handlePhysicianApply(role.id, "india", "job")
+                            }
+                            className="px-5 py-2 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors"
+                          >
+                            India — TELTH.Care
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {selectedPhysicianApply?.roleId === role.id && (
+                      <p className="text-xs text-muted-foreground mt-3">
+                        Redirecting to{" "}
+                        {selectedPhysicianApply.location === "uk"
+                          ? "MedPass"
+                          : "TELTH.Care"}{" "}
+                        {selectedPhysicianApply.type === "study"
+                          ? "higher studies"
+                          : "job"}{" "}
+                        application portal...
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Compensation Structure */}
       <section className="py-12 md:py-16 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -478,6 +724,155 @@ export default function Career() {
             <p className="text-xs text-slate-400">
               * Actual compensation may vary based on experience, performance,
               and location
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Physician Compensation Section */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-flex items-center rounded-full bg-rose-100 px-4 py-1 text-sm font-medium text-rose-700">
+              <Stethoscope className="w-4 h-4 mr-1" />
+              Physician Compensation
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4">
+              Earning Potential for Physicians
+            </h2>
+            <p className="text-slate-500 mt-3 max-w-2xl mx-auto">
+              Competitive compensation based on experience and consultation
+              volume
+            </p>
+          </div>
+
+          {/* Earning Range Cards */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 text-center">
+              <div className="inline-flex items-center rounded-full bg-blue-200 px-3 py-1 text-sm font-medium text-blue-800 mb-3">
+                Junior Physician
+              </div>
+              <p className="text-sm text-blue-700 mb-2">0 – 10 Years</p>
+              <p className="text-2xl font-bold text-blue-900">₹64,000</p>
+              <p className="text-sm text-blue-600">Minimum / Month</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 text-center">
+              <div className="inline-flex items-center rounded-full bg-purple-200 px-3 py-1 text-sm font-medium text-purple-800 mb-3">
+                Senior Physician
+              </div>
+              <p className="text-sm text-purple-700 mb-2">&gt; 10 Years</p>
+              <p className="text-2xl font-bold text-purple-900">₹96,000</p>
+              <p className="text-sm text-purple-600">Minimum / Month</p>
+            </div>
+            <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-6 border border-amber-200 text-center">
+              <div className="inline-flex items-center rounded-full bg-amber-200 px-3 py-1 text-sm font-medium text-amber-800 mb-3">
+                Consultant Physician
+              </div>
+              <p className="text-sm text-amber-700 mb-2">&gt; 20 Years</p>
+              <p className="text-2xl font-bold text-amber-900">₹1,60,000</p>
+              <p className="text-sm text-amber-600">Minimum / Month</p>
+            </div>
+          </div>
+
+          {/* Detailed Breakdown */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Junior */}
+            <div className="bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+              <div className="bg-blue-600 px-6 py-3">
+                <h4 className="text-white font-semibold text-sm">
+                  Junior — ₹20/Patient
+                </h4>
+              </div>
+              <div className="p-5 space-y-2 text-sm">
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">3 Minutes/Patient</span>
+                  <span className="font-medium">₹20</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">1 Hour (20 Patients)</span>
+                  <span className="font-medium">₹400</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">8 Hours/Day</span>
+                  <span className="font-medium">₹3,200</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">5 Days/Week</span>
+                  <span className="font-medium">₹16,000</span>
+                </div>
+                <div className="flex justify-between pt-2 font-bold text-blue-700">
+                  <span>Monthly Earning Potential</span>
+                  <span>₹64,000</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Senior */}
+            <div className="bg-white rounded-2xl border border-purple-200 shadow-sm overflow-hidden">
+              <div className="bg-purple-600 px-6 py-3">
+                <h4 className="text-white font-semibold text-sm">
+                  Senior — ₹30/Patient
+                </h4>
+              </div>
+              <div className="p-5 space-y-2 text-sm">
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">3 Minutes/Patient</span>
+                  <span className="font-medium">₹30</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">1 Hour (20 Patients)</span>
+                  <span className="font-medium">₹600</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">8 Hours/Day</span>
+                  <span className="font-medium">₹4,800</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">5 Days/Week</span>
+                  <span className="font-medium">₹24,000</span>
+                </div>
+                <div className="flex justify-between pt-2 font-bold text-purple-700">
+                  <span>Monthly Earning Potential</span>
+                  <span>₹96,000</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Consultant */}
+            <div className="bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
+              <div className="bg-amber-600 px-6 py-3">
+                <h4 className="text-white font-semibold text-sm">
+                  Consultant — ₹50/Patient
+                </h4>
+              </div>
+              <div className="p-5 space-y-2 text-sm">
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">3 Minutes/Patient</span>
+                  <span className="font-medium">₹50</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">1 Hour (20 Patients)</span>
+                  <span className="font-medium">₹1,000</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">8 Hours/Day</span>
+                  <span className="font-medium">₹8,000</span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 py-2">
+                  <span className="text-slate-600">5 Days/Week</span>
+                  <span className="font-medium">₹40,000</span>
+                </div>
+                <div className="flex justify-between pt-2 font-bold text-amber-700">
+                  <span>Monthly Earning Potential</span>
+                  <span>₹1,60,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-xs text-slate-400">
+              * Based on 20 patients per hour, 8-hour workday, 5 days per week
             </p>
           </div>
         </div>
