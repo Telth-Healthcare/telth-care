@@ -592,7 +592,7 @@ export default function Career() {
                           }
                           className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors shadow-sm hover:shadow-md"
                         >
-                          UK — Harley Health System
+                          UK — MedPass
                         </button>
                       </div>
 
@@ -764,8 +764,8 @@ export default function Career() {
         <div className="flex flex-wrap w-auto justify-center gap-4 mt-6">
           {[
             {
-              label: "Revenue Range",
-              value: "Minimum 250/month",
+              label: "Care Plans to be Serviced",
+              value: "250/month",
               color: "emerald",
             },
             {
