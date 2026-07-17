@@ -240,7 +240,7 @@ export default function Career() {
 
     if (location === "uk") {
       window.open(
-        "https://www.medpassedu.org/application-form?role=cm",
+        "https://www.medpassedu.org/application-form?role=physician",
         "_blank",
       );
     } else {
