@@ -195,13 +195,13 @@ const careerPath = [
 export default function Career() {
   const [expandedJob, setExpandedJob] = useState<string | null>("assistant-cm");
   const [expandedPhysician, setExpandedPhysician] = useState<string | null>(
-    null
+    null,
   );
   const [selectedLocation, setSelectedLocation] = useState<
     "uk" | "india" | null
   >(null);
   const [selectedJobForApply, setSelectedJobForApply] = useState<string | null>(
-    null
+    null,
   );
   const [selectedPhysicianApply, setSelectedPhysicianApply] = useState<{
     roleId: string;
@@ -224,7 +224,7 @@ export default function Career() {
     if (location === "uk") {
       window.open(
         "https://www.medpassedu.org/application-form?role=cm",
-        "_blank"
+        "_blank",
       );
     } else {
       window.open("https://app.telth.care/ccm-auth/signup", "_blank");
@@ -234,12 +234,15 @@ export default function Career() {
   const handlePhysicianApply = (
     roleId: string,
     location: "uk" | "india",
-    type: "job" | "study"
+    type: "job" | "study",
   ) => {
     setSelectedPhysicianApply({ roleId, location, type });
 
     if (location === "uk") {
-      window.open("https://www.medpassedu.org/application-form?role=cm", "_blank");
+      window.open(
+        "https://www.medpassedu.org/application-form?role=cm",
+        "_blank",
+      );
     } else {
       window.open("https://app.telth.care/ccm-auth/signup", "_blank");
     }
@@ -319,7 +322,7 @@ export default function Career() {
             <div className="flex flex-wrap justify-center gap-4">
               <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border">
                 <Briefcase className="w-4 h-4 text-primary" />
-                <span className="text-sm">4 Career Levels</span>
+                <span className="text-sm">Career Levels</span>
               </div>
               <div className="flex items-center gap-2 bg-card px-4 py-2 rounded-full border">
                 <GraduationCap className="w-4 h-4 text-primary" />
@@ -472,126 +475,154 @@ export default function Career() {
       {/* Physicians Section */}
       <section className="py-12 md:py-16 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
+          {/* Header */}
           <div className="mb-10">
             <div className="flex items-center gap-3 mb-3">
-              <Stethoscope className="w-8 h-8 text-emerald-600" />
-              <h2 className="text-2xl md:text-3xl font-bold">
+              <div className="p-2 bg-emerald-100 rounded-xl">
+                <Stethoscope className="w-6 h-6 text-emerald-600" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
                 Doctors / Collaborative Care Physicians
               </h2>
             </div>
-            <p className="text-muted-foreground">
+            <p className="text-slate-600 text-base max-w-2xl">
               Join our network of collaborative care physicians and shape the
               future of community healthcare
             </p>
+
+            {/* Filter Tags */}
+            <div className="mt-5 pt-5 border-t border-slate-200/60">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-xs font-medium text-slate-400 uppercase tracking-wider mr-1">
+                  Specialties:
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 text-sm font-medium rounded-full border border-blue-200">
+                  <Shield className="w-3.5 h-3.5" />
+                  Preventive Care
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 text-rose-700 text-sm font-medium rounded-full border border-rose-200">
+                  <Heart className="w-3.5 h-3.5" />
+                  Chronic Care
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 text-sm font-medium rounded-full border border-emerald-200">
+                  <Activity className="w-3.5 h-3.5" />
+                  Primary Care
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 mt-3">
+                <span className="text-xs font-medium text-slate-400 uppercase tracking-wider mr-1">
+                  Work Modes:
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-full border border-indigo-200">
+                  <Clock className="w-3.5 h-3.5" />
+                  Part Time — Remote
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 text-sm font-medium rounded-full border border-amber-200">
+                  <Briefcase className="w-3.5 h-3.5" />
+                  Full Time — Field Work / Hub Management
+                </span>
+              </div>
+            </div>
           </div>
 
+          {/* Role Cards */}
           <div className="space-y-4">
             {physicianRoles.map((role) => (
               <div
                 key={role.id}
-                className="border rounded-xl bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200"
               >
                 <button
                   onClick={() => togglePhysician(role.id)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-muted/30 transition-colors text-left"
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50/80 transition-colors text-left group"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="text-lg font-semibold">{role.title}</h3>
-                      <span
-                        className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getLevelBadgeColor(role.level)}`}
-                      >
-                        {role.level.charAt(0).toUpperCase() + role.level.slice(1)}
-                      </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
-                        {role.experience}
-                      </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 font-medium flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {role.type === "part-time" ? "Part Time" : "Full Time"}
-                      </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 font-medium">
-                        {role.workMode === "remote" ? "Remote" : "Field Work/Hub Management"}
-                      </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 font-medium flex items-center gap-1">
-                        {getSpecialtyIcon(role.specialty)}
-                        {getSpecialtyLabel(role.specialty)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-muted-foreground hidden sm:inline">
-                      {expandedPhysician === role.id
-                        ? "Hide options"
-                        : "View options"}
+                  <div className="flex-1 flex items-center gap-3 flex-wrap">
+                    <h3 className="text-base md:text-lg font-semibold text-slate-900">
+                      {role.title}
+                    </h3>
+                    <span
+                      className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${getLevelBadgeColor(role.level)}`}
+                    >
+                      {role.level.charAt(0).toUpperCase() + role.level.slice(1)}
                     </span>
-                    {expandedPhysician === role.id ? (
-                      <ChevronUp className="w-5 h-5 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                    )}
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+                      {role.experience}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <span className="text-sm text-slate-400 hidden sm:inline">
+                      {expandedPhysician === role.id ? "Hide" : "View"}
+                    </span>
+                    <div
+                      className={`p-1 rounded-full transition-colors ${
+                        expandedPhysician === role.id
+                          ? "bg-emerald-100"
+                          : "bg-slate-100"
+                      }`}
+                    >
+                      {expandedPhysician === role.id ? (
+                        <ChevronUp className="w-4 h-4 text-emerald-600" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-slate-400" />
+                      )}
+                    </div>
                   </div>
                 </button>
 
                 {expandedPhysician === role.id && (
-                  <div className="px-6 pb-6 pt-2 border-t">
-                    <div className="grid md:grid-cols-2 gap-6">
+                  <div className="px-6 pb-6 pt-4 border-t border-slate-100">
+                    <div className="grid md:grid-cols-2 gap-5">
                       {/* Apply for Higher Studies */}
-                      <div className="space-y-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
-                        <div className="flex items-center gap-2">
-                          <GraduationCap className="w-5 h-5 text-blue-600" />
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl p-5 border border-blue-200/60">
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="p-1.5 bg-blue-100 rounded-lg">
+                            <GraduationCap className="w-5 h-5 text-blue-600" />
+                          </div>
                           <h4 className="font-semibold text-blue-900">
                             Apply for Higher Studies
                           </h4>
                         </div>
-                        <p className="text-sm text-blue-700">
+                        <p className="text-sm text-blue-700/80 mb-4">
                           Pursue advanced education and research opportunities
                         </p>
-                        <div className="flex flex-wrap gap-3 mt-2">
-                          <button
-                            onClick={() =>
-                              handlePhysicianApply(role.id, "uk", "study")
-                            }
-                            className="px-5 py-2 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors"
-                          >
-                            UK — MedPass
-                          </button>
-                          <button
-                            onClick={() =>
-                              handlePhysicianApply(role.id, "india", "study")
-                            }
-                            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
-                          >
-                            India — TELTH.Care
-                          </button>
-                        </div>
+                        <button
+                          onClick={() =>
+                            handlePhysicianApply(role.id, "uk", "study")
+                          }
+                          className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors shadow-sm hover:shadow-md"
+                        >
+                          UK — Harley Health System
+                        </button>
                       </div>
 
                       {/* Apply for Job */}
-                      <div className="space-y-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                        <div className="flex items-center gap-2">
-                          <Briefcase className="w-5 h-5 text-emerald-600" />
+                      <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-xl p-5 border border-emerald-200/60">
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="p-1.5 bg-emerald-100 rounded-lg">
+                            <Briefcase className="w-5 h-5 text-emerald-600" />
+                          </div>
                           <h4 className="font-semibold text-emerald-900">
                             Apply for Job
                           </h4>
                         </div>
-                        <p className="text-sm text-emerald-700">
+                        <p className="text-sm text-emerald-700/80 mb-4">
                           Join our collaborative care network
                         </p>
-                        <div className="flex flex-wrap gap-3 mt-2">
+                        <div className="flex flex-wrap gap-3">
                           <button
                             onClick={() =>
                               handlePhysicianApply(role.id, "uk", "job")
                             }
-                            className="px-5 py-2 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors"
+                            className="px-5 py-2.5 rounded-lg bg-[#0D9488] text-white text-sm font-medium hover:bg-[#0D9488]/90 transition-colors shadow-sm hover:shadow-md"
                           >
-                            UK — MedPass
+                            UK — Harley Health System
                           </button>
                           <button
                             onClick={() =>
                               handlePhysicianApply(role.id, "india", "job")
                             }
-                            className="px-5 py-2 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors"
+                            className="px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors shadow-sm hover:shadow-md"
                           >
                             India — TELTH.Care
                           </button>
@@ -599,18 +630,21 @@ export default function Career() {
                       </div>
                     </div>
 
-                    {selectedPhysicianApply?.roleId === role.id && (
-                      <p className="text-xs text-muted-foreground mt-3">
-                        Redirecting to{" "}
-                        {selectedPhysicianApply.location === "uk"
-                          ? "MedPass"
-                          : "TELTH.Care"}{" "}
-                        {selectedPhysicianApply.type === "study"
-                          ? "higher studies"
-                          : "job"}{" "}
-                        application portal...
-                      </p>
-                    )}
+                    {/* {selectedPhysicianApply?.roleId === role.id && (
+                      <div className="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <p className="text-xs text-slate-500 flex items-center gap-2">
+                          <span className="inline-block w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                          Redirecting to{" "}
+                          {selectedPhysicianApply.location === "uk"
+                            ? "Harley Health System"
+                            : "TELTH.Care"}{" "}
+                          {selectedPhysicianApply.type === "study"
+                            ? "higher studies"
+                            : "job"}{" "}
+                          application portal...
+                        </p>
+                      </div>
+                    )} */}
                   </div>
                 )}
               </div>
@@ -705,16 +739,16 @@ export default function Career() {
                 </p>
 
                 <h3 className="mt-2 text-4xl md:text-5xl font-bold text-white">
-                  250<span className="text-2xl">/Month</span>
+                  ₹65,000<span className="text-2xl">/Month</span>
                 </h3>
 
-                <p className="text-white/70 text-sm mt-2">
+                {/* <p className="text-white/70 text-sm mt-2">
                   Revenue Target: ₹5,00,000 / Month
-                </p>
+                </p> */}
 
                 <div className="mt-6 inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 text-white/90 text-sm">
                   <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                  Minimum Guaranteed Income: ₹65,000 / Month
+                  Minimum Guaranteed Income
                 </div>
               </div>
             </div>
@@ -727,8 +761,34 @@ export default function Career() {
             </p>
           </div>
         </div>
-      </section>
+        <div className="flex flex-wrap w-auto justify-center gap-4 mt-6">
+          {[
+            {
+              label: "Revenue Range",
+              value: "Minimum 250/month",
+              color: "emerald",
+            },
+            {
+              label: "Target Revenue",
+              value: "₹5,00,000 / Month",
+              color: "blue",
+            },
+          ].map((metric, idx) => (
+            <div
+              key={idx}
+              className={`w-full sm:w-72 bg-${metric.color}-50 rounded-xl p-6 text-center border border-${metric.color}-100`}
+            >
+              <p className={`text-sm font-medium text-${metric.color}-600`}>
+                {metric.label}
+              </p>
 
+              <p className={`text-2xl font-bold text-${metric.color}-700 mt-2`}>
+                {metric.value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
       {/* Physician Compensation Section */}
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -772,108 +832,6 @@ export default function Career() {
               <p className="text-2xl font-bold text-amber-900">₹1,60,000</p>
               <p className="text-sm text-amber-600">Minimum / Month</p>
             </div>
-          </div>
-
-          {/* Detailed Breakdown */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Junior */}
-            <div className="bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
-              <div className="bg-blue-600 px-6 py-3">
-                <h4 className="text-white font-semibold text-sm">
-                  Junior — ₹20/Patient
-                </h4>
-              </div>
-              <div className="p-5 space-y-2 text-sm">
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">3 Minutes/Patient</span>
-                  <span className="font-medium">₹20</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">1 Hour (20 Patients)</span>
-                  <span className="font-medium">₹400</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">8 Hours/Day</span>
-                  <span className="font-medium">₹3,200</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">5 Days/Week</span>
-                  <span className="font-medium">₹16,000</span>
-                </div>
-                <div className="flex justify-between pt-2 font-bold text-blue-700">
-                  <span>Monthly Earning Potential</span>
-                  <span>₹64,000</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Senior */}
-            <div className="bg-white rounded-2xl border border-purple-200 shadow-sm overflow-hidden">
-              <div className="bg-purple-600 px-6 py-3">
-                <h4 className="text-white font-semibold text-sm">
-                  Senior — ₹30/Patient
-                </h4>
-              </div>
-              <div className="p-5 space-y-2 text-sm">
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">3 Minutes/Patient</span>
-                  <span className="font-medium">₹30</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">1 Hour (20 Patients)</span>
-                  <span className="font-medium">₹600</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">8 Hours/Day</span>
-                  <span className="font-medium">₹4,800</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">5 Days/Week</span>
-                  <span className="font-medium">₹24,000</span>
-                </div>
-                <div className="flex justify-between pt-2 font-bold text-purple-700">
-                  <span>Monthly Earning Potential</span>
-                  <span>₹96,000</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Consultant */}
-            <div className="bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
-              <div className="bg-amber-600 px-6 py-3">
-                <h4 className="text-white font-semibold text-sm">
-                  Consultant — ₹50/Patient
-                </h4>
-              </div>
-              <div className="p-5 space-y-2 text-sm">
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">3 Minutes/Patient</span>
-                  <span className="font-medium">₹50</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">1 Hour (20 Patients)</span>
-                  <span className="font-medium">₹1,000</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">8 Hours/Day</span>
-                  <span className="font-medium">₹8,000</span>
-                </div>
-                <div className="flex justify-between border-b border-slate-100 py-2">
-                  <span className="text-slate-600">5 Days/Week</span>
-                  <span className="font-medium">₹40,000</span>
-                </div>
-                <div className="flex justify-between pt-2 font-bold text-amber-700">
-                  <span>Monthly Earning Potential</span>
-                  <span>₹1,60,000</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 text-center">
-            <p className="text-xs text-slate-400">
-              * Based on 20 patients per hour, 8-hour workday, 5 days per week
-            </p>
           </div>
         </div>
       </section>
